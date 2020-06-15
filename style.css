@@ -1,0 +1,73 @@
+.contenedorColumnas {
+    display: flex;
+    flex-direction: row;
+}
+
+.columnaUno {
+    width: 20%;
+    margin: 1%;
+    background-color: #F8F8F8;
+}
+
+.columnaDos {
+    width: 80%;
+    margin: 1%;
+}
+
+.contenedorCards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.cardProducto {
+    width: 25%;
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.cardProducto .card {
+    justify-content: center;
+    align-items: center;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.contenedorLogin {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+    background-image: url(ruta.jpg);
+    background-position: bottom;
+    width: 100%;
+}
+
+/*
+* Formulario Ingreso Usuario
+*/
+
+.pantallaLogin {
+    display: flex;
+    flex-direction: row;
+}
+
+.formIngreso {
+    width: 60%;
+    padding: 30px;
+}
+
+.imagenIngreso {
+    width: 40%;
+    background-image: url(gente.jpg);
+    margin: 30px;
+    border-radius: 5%;
+    background-position: bottom;
+}

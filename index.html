@@ -1,0 +1,58 @@
+<!doctype html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+</head>
+<body>
+
+<div class="contenedorLogin">
+    <div class="loginForm">
+        <form class="form-signin" ng-controller="loginForm">
+            <div class="text-center mb-4">
+                <img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+                <!-- <h1 class="h3 mb-3 font-weight-normal">Floating labels</h1> -->
+                <p style="color: white">{{titulo}}</p>
+            </div>
+
+            <div class="form-label-group">
+                <input type="text" id="inputEmail" class="form-control" placeholder="Usuario" required="" autofocus="">
+                <label for="inputEmail">Nombre de Usuario:</label>
+            </div>
+
+            <div class="form-label-group">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="">
+                <label for="inputPassword">Contraseña</label>
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+
+            <a href="controllers/AltaUsuarioController.php" class="mb-3 text-muted text-center"
+               style="display: flex;flex-direction: row-reverse;justify-content: end;">Registrarme</a>
+            <p class="mt-5 mb-3 text-muted text-center">© 2017-2020</p>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+<script>
+
+    angular.module('components', [])
+    angular.module('app', ['components'])
+
+        .controller('loginForm', function ($scope) {
+            $scope.titulo = "Hola soy el titulo"
+        });
+
+
+</script>
