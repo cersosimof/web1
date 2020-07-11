@@ -10,36 +10,37 @@
 
     <link rel="stylesheet" href="style.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+
 </head>
 <body>
 
-<div class="contenedorLogin">
-    <div class="loginForm">
-        <form class="form-signin" ng-controller="loginForm">
-            <div class="text-center mb-4">
-                <img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-                <!-- <h1 class="h3 mb-3 font-weight-normal">Floating labels</h1> -->
-                <p style="color: white">{{titulo}}</p>
-            </div>
 
-            <div class="form-label-group">
-                <input type="text" id="inputEmail" class="form-control" placeholder="Usuario" required="" autofocus="">
-                <label for="inputEmail">Nombre de Usuario:</label>
-            </div>
-
-            <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="">
-                <label for="inputPassword">Contraseña</label>
-            </div>
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-
-            <a href="controllers/AltaUsuarioController.php" class="mb-3 text-muted text-center"
-               style="display: flex;flex-direction: row-reverse;justify-content: end;">Registrarme</a>
-            <p class="mt-5 mb-3 text-muted text-center">© 2017-2020</p>
-        </form>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar w/ text</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+            </li>
+        </ul>
+        <span class="navbar-text">
+            Navbar text with an inline element
+          </span>
     </div>
-</div>
+</nav>
+
+<div ng-view></div>
+
 
 </body>
 </html>
@@ -47,12 +48,39 @@
 
 <script>
 
-    angular.module('components', [])
-    angular.module('app', ['components'])
+    var app = angular.module("app", ["ngRoute"]);
+    app.config(function($routeProvider) {
+        $routeProvider
+            .when("/", {
+                templateUrl : "views/home.php"
+            })
+            .when("/altaUsuario", {
+                templateUrl : "views/AltaUsuarioVista.php"
+            })
+            .when("/login", {
+                templateUrl : "views/login.php"
+            })
+            .when("/blue", {
+                templateUrl : "blue.htm"
+            });
+    });
 
-        .controller('loginForm', function ($scope) {
-            $scope.titulo = "Hola soy el titulo"
-        });
+
+        app.controller('loginForm', function ($scope) {
+            $scope.titulo = "Bienvenido, soy el titulo"
+            $scope.enviarDatosLogin = function () {
+                console.log($scope.usuarioLogin)
+                
+            }
+        })
+
+
+
+        app.controller('altaUsuario', function($scope) {
+            $scope.saludar = function () {
+                alert('saludar')
+            }
+         })
 
 
 </script>

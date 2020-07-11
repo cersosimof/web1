@@ -13,6 +13,9 @@ if( (isset($_POST["nombre"])) && (isset($_POST["apellido"])) && (isset($_POST["u
 
     $connect = new ConnectDB();
     $d = $connect->ingresarNuevoUsuario($nombre, $apellido, $usuario, $correo, $clave);
+    if($d == 1){
+        echo "se cargo correctamente";
+    }
 }
 
 require_once("../views/AltaUsuarioVista.php");

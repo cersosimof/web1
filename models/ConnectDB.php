@@ -27,7 +27,7 @@ class ConnectDB {
     public function ingresarNuevoUsuario($nombre, $apellido, $usuario, $correo, $clave) {
         $link = $this->abrirConexion();
         $queryInsercion = mysqli_query($link, "INSERT INTO usuarios (nombre, apellido, usuario, correo, clave) VALUES ('$nombre', '$apellido', '$usuario', '$correo', '$clave')");
-        echo $queryInsercion;
+        return $queryInsercion;
         mysqli_close($link);
     }
 
