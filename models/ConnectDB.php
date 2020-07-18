@@ -45,8 +45,37 @@ class ConnectDB {
         mysqli_close($link);
     }
 
+    public function loguearUsuario($nombre, $clave) {
+        $link = $this->abrirConexion();
+        $queryBuscarUsuario = mysqli_query($link, "select id, nombre, apellido, usuario, correo from usuarios where usuario = '$nombre' AND clave = '$clave'");
 
+        //No se encontraron resultados
+        if($queryBuscarUsuario===false){
+            return 0;
+        }
 
+        $persona = mysqli_fetch_assoc($queryBuscarUsuario);
+
+//        if(!$queryBuscarUsuario) {
+//            die ('No se pudo conectar' . mysqli_error());
+//        }
+
+        return $persona;
+
+        mysqli_close($link);
+    }
+
+public function traerPartidos(){
+    $buenosAires = [];
+    $link = $this->abrirConexion();
+    $queryBuscarPartidos = mysqli_query($link, "SELECT * FROM partidos_bsas");
+
+    while($fila = mysqli_fetch_assoc($queryBuscarPartidos)) {
+        $buenosAires[] = $fila;
+    }
+
+    return $buenosAires;
+}
 
 
 
