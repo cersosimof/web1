@@ -2,8 +2,8 @@
 
     <div class="pantallaLogin container">
       <div class="formIngreso">
-        <form >
-        <form method="post" action="AltaUsuarioController.php" ng-controller="altaUsuario">
+        <h4 class="tituloPrincipal">Alta usuario</h4>
+        <form method="post" action="/altaPropiedad" ng-controller="altaUsuario">
 
             <div class="form-group">
             <label for="nombre">Nombre</label>
@@ -32,14 +32,11 @@
 <!--            <input type="password" class="form-control" id="pass" />-->
 <!--          </div>-->
 
-          <button type="submit" class="btn btn-primary">Aceptar</button>
+          <button type="submit" class="btn btn-primary botonPrincipal">Aceptar</button>
         </form>
       </div>
       <div class="imagenIngreso"></div>
 
-        <div ng-controller="altaUsuario">
-            <button class="btn btn-primary" ng-click="saludar()">prueba</button>
-        </div>
 
     </div>
 

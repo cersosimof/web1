@@ -71,3 +71,24 @@
     border-radius: 5%;
     background-position: bottom;
 }
+
+.botonSeleccionado {
+    background-color: black;
+}
+
+.botonNoSeleccionado {
+    background-color: #6c757d;
+}
+
+.tituloPrincipal {
+    border-bottom: 1px solid olivedrab;
+    color: olive;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.botonPrincipal {
+    background-color: olive;
+    border: none;
+    width: 100%;
+}

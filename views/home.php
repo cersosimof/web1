@@ -11,25 +11,43 @@
                 <p class="lead">Ingrese los parametros para realizar una busqueda.</p>
                 <hr class="my-4">
 
-                <div style="display: flex;flex-direction: row;width: 100%;justify-content: space-around;height: 38px;align-items: center;margin-top: 35px;">
+                <form action="tuvieja" method="get" style="display: flex;flex-direction: row;width: 100%;justify-content: space-around;height: 38px;align-items: center;margin-top: 35px;">
 <!--                    BOTON DE ALQUILA O VENDE-->
-                    <div class="btn-group" role="group" aria-label="Basic example" style="padding-top: 11px">
-                        <button type="button" class="btn btn-secondary" ng-click="activarOperacion(1)" id="operacion_1">Venta</button>
-                        <button type="button" class="btn btn-secondary" ng-click="activarOperacion(2)" id="operacion_2">Alquiler</button>
-                    </div>
+                <div style="display: flex; flex-direction: column">
+                    <label for="selectProvincia">Operacion:</label>
 
-                    <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="operacion" value="1" id="radioVenta" checked>
+                        <label class="form-check-label" for="radioVenta">
+                            Venta
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="operacion" value="2" id="radioAlquiler" >
+                        <label class="form-check-label" for="radioAlquiler">
+                            Alquiler
+                        </label>
+                    </div>
+                </div>
+<!--                    <div class="btn-group" role="group" aria-label="Basic example" style="padding-top: 11px" ng-init="activarOperacion(1)" name="operacion">-->
+<!--                        <div class="btn btn-secondary" ng-click="activarOperacion(1)" id="operacion_1" name="operacion">Venta</div>-->
+<!--                        <div class="btn btn-secondary" ng-click="activarOperacion(2)" id="operacion_2" name="operacion">Alquiler</div>-->
+<!--                    </div>-->
+
+<!--                    SELECT PROVINCIA-->
+                    <div class="form-group" >
                         <label for="selectProvincia">Provincia:</label>
-                        <select class="form-control" id="selectProvincia">
+                        <select class="form-control" id="selectProvincia" name="provincia">
                             <option value="1">Buenos Aires</option>
                         </select>
                     </div>
 
-                    <div class="form-group" >
+<!--                    SELECT PARTIDO-->
+                    <div class="form-group">
                         <label for="selectProvincia">Partido:</label>
-                        <select class="form-control" id="selectProvincia" ng-change="selectPartido()" ng-model="partidoSeleccionado">
+                        <select class="form-control" id="selectProvincia" name="partido">
+                            <option value="0" selected="selected">Todos</option>
                             <?php
-                            echo "<option value='0'> Todas </option>";
                             foreach ($partidos as $partido) {
                             echo "<option value='" . $partido["id"] . "'>" . $partido["partido"] . "</option>";
                             }
@@ -38,11 +56,11 @@
                     </div>
 
                     <div style="padding-top: 11px">
-                        <a class="btn btn-primary btn-lg" href="#" role="button" style="height: 38px; padding: 6px 12px; padding-top: 4px;" ng-click="enviarBusqueda()">Buscar</a>
+                        <button type="submit" class="btn btn-primary btn-lg" href="#" role="button" style="height: 38px; padding: 6px 12px; padding-top: 4px;">Buscar!</button>
+                    <!--                        <a class="btn btn-primary btn-lg" href="#" role="button" style="height: 38px; padding: 6px 12px; padding-top: 4px;" ng-click="enviarBusqueda()">Buscar</a>-->
                     </div>
 
-
-                </div>
+                </form>
 
 
             </div>

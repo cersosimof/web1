@@ -31,7 +31,7 @@
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Publicar!</a>
+                <a class="nav-link" href="/web1/#!/altaPropiedad">Publicar!</a>
             </li>
 <!--            --><?php //if(isset($_SESSION["usuario"])){ ?>
 <!--            <li class="nav-item">-->
@@ -80,6 +80,9 @@
             .when("/login", {
                 templateUrl : "views/login.php"
             })
+            .when("/altaPropiedad", {
+                templateUrl : "controllers/altaPropiedadController.php"
+            })
 
     });
 
@@ -113,36 +116,33 @@
         })
 
         app.controller('controladorBuscador', function($scope, $http){
-            let operacion = 1;
-            let provincia = 1;
-            let partido = 0;
 
-            $scope.activarOperacion = function (op) {
-                operacion = op
-            }
+        })
 
-            $scope.selectPartido = function(){
-                partido = $scope.partidoSeleccionado;
 
-                
-            }
-
-            $scope.enviarBusqueda = function (){
-                console.log("ENVIAR!")
-                // $http({
-                //     method: 'POST',
-                //     url: '/web1/controllers/loginController.php',
-                //     data: { op : operacion, provincia : provincia, partido : partido },
-                // }).then(function successCallback(response) {
-                //     if(response.data===0){
-                //         alert("No se encontro el usaurio")
-                //     } else {
-                //         location.href = "/web1/"
-                //     }
-                // }, function errorCallback(response) {
-                //     console.error('Error')
-                // });
-            }
+        app.controller('formAltaPropiedad', function($scope, $http) {
+            $scope.usuario = "2324234"
+            $scope.operacion = 1;
+            // $scope.enviarInfoPropiedad = function () {
+            //     // $http({
+            //     //     method: 'POST',
+            //     //     url: '/web1/controllers/altaPropiedadController.php',
+            //     //     data: { operacion : $scope.operacion,
+            //     //         provincia : $scope.provincia,
+            //     //         partido : $scope.partido,
+            //     //         tipo : $scope.tipo,
+            //     //         direccion : $scope.direccion,
+            //     //         precio : $scope.precio,
+            //     //         tamano : $scope.tamano,
+            //     //         descripcion : $scope.descripcion,
+            //     //         usuario : $scope.usuario
+            //     //     },
+            //     // }).then(function successCallback(response) {
+            //     //     console.log(response)
+            //     // }, function errorCallback(response) {
+            //     //     console.error('Error')
+            //     // });
+            // }
         })
 
 
