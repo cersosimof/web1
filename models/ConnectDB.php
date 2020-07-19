@@ -76,8 +76,23 @@ public function traerPartidos(){
 
     return $buenosAires;
 }
+    // INSERTAR NUEVA PROPIEDAD
+    public function insertarNuevaPropiedad($operacion, $provincia, $partido, $tipo, $direccion, $precio, $tamano, $descripcion, $usuario) {
+        $link = $this->abrirConexion();
 
+        $sqlBuscarUsuario = "SELECT id FROM usuarios WHERE usuario = '$usuario'";
+        $ejecutarBusquedaUsuario = mysqli_query($link, $sqlBuscarUsuario);
+        $idUsuario = mysqli_fetch_assoc($ejecutarBusquedaUsuario);
+        $usuario =  $idUsuario["id"];
 
+        $sql = "INSERT INTO departamentos (id, id_operacion, id_provincia, id_partido, direccion, descripcion, id_usuario, precio, m2, tipo) VALUES (NULL, '$operacion', '$provincia', '$partido', '$direccion', '$descripcion', '$usuario', '$precio', '$tamano', '$tipo');";
+        if (mysqli_query($link, $sql)) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
 
 }
 

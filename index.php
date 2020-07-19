@@ -121,28 +121,36 @@
 
 
         app.controller('formAltaPropiedad', function($scope, $http) {
-            $scope.usuario = "2324234"
-            $scope.operacion = 1;
-            // $scope.enviarInfoPropiedad = function () {
-            //     // $http({
-            //     //     method: 'POST',
-            //     //     url: '/web1/controllers/altaPropiedadController.php',
-            //     //     data: { operacion : $scope.operacion,
-            //     //         provincia : $scope.provincia,
-            //     //         partido : $scope.partido,
-            //     //         tipo : $scope.tipo,
-            //     //         direccion : $scope.direccion,
-            //     //         precio : $scope.precio,
-            //     //         tamano : $scope.tamano,
-            //     //         descripcion : $scope.descripcion,
-            //     //         usuario : $scope.usuario
-            //     //     },
-            //     // }).then(function successCallback(response) {
-            //     //     console.log(response)
-            //     // }, function errorCallback(response) {
-            //     //     console.error('Error')
-            //     // });
-            // }
+
+            $scope.enviarInfoPropiedad = function () {
+
+                var propiedad =
+                    {
+                        operacion : $scope.operacionAlta,
+                        provincia : $scope.provinciaAlta,
+                        partido : $scope.partidoAlta,
+                        tipo : $scope.tipoAlta,
+                        direccion : $scope.direccionAlta,
+                        precio : $scope.precioAlta,
+                        tamano : $scope.tamanoAlta,
+                        descripcion : $scope.descripcionAlta
+                    }
+
+                $http({
+                    method: 'POST',
+                    url: '/web1/controllers/procesarAltaPropiedad.php',
+                    data: propiedad,
+                }).then(function successCallback(response) {
+                    if(response.data == 1) {
+                        alert("El registro se cargo correctamente");
+                        location.reload();
+                    } else {
+                        alert("Problema al cargar el registro")
+                    }
+                }, function errorCallback(response) {
+                    console.error('Error')
+                });
+            }
         })
 
 
