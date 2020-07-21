@@ -31,7 +31,7 @@
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/web1/#!/altaPropiedad">Publicar!</a>
+                <a class="nav-link" href="#!/altaPropiedad">Publicar!</a>
             </li>
 <!--            --><?php //if(isset($_SESSION["usuario"])){ ?>
 <!--            <li class="nav-item">-->
@@ -69,7 +69,7 @@
 <script>
 
     var app = angular.module("app", ["ngRoute"]);
-    app.config(function($routeProvider) {
+    app.config(   function($routeProvider) {
         $routeProvider
             .when("/", {
                 templateUrl : "controllers/homeController.php"
@@ -83,7 +83,10 @@
             .when("/altaPropiedad", {
                 templateUrl : "controllers/altaPropiedadController.php"
             })
-
+            .when("/busqueda/:p1/:p2/:p3/:p4", {
+                templateUrl : "views/BusquedaVista.php",
+                controller : 'paginaMostrarResultados'
+            })
     });
 
 
@@ -103,7 +106,7 @@
                 }, function errorCallback(response) {
                     console.error('Error')
                 });
-                
+
             }
         })
 
@@ -115,10 +118,70 @@
             }
         })
 
-        app.controller('controladorBuscador', function($scope, $http){
+    app.controller('controladorBuscador', function($scope, $http){
+        let operacion = 1;
+        let provincia = 1;
+        let partido = 0;
 
-        })
+        $scope.activarOperacion = function (op) {
+            operacion = op
+            var botonVenta = angular.element( document.querySelector( '#operacion_1' ) );
+            var botonAlquiler = angular.element( document.querySelector( '#operacion_2' ) );
 
+            botonVenta.removeClass('botonSeleccionado');
+            botonAlquiler.removeClass('botonSeleccionado');
+
+            if(operacion == 1){
+                botonVenta.addClass('botonSeleccionado');
+            } else {
+                botonAlquiler.addClass('botonSeleccionado');
+            }
+        }
+
+
+
+        $scope.enviarBusqueda = function (){
+
+            location.href = '#!/busqueda/'+ provincia +'/'+$scope.provinciaABuscar+'/'+$scope.partidoABuscar+'/0';
+        }
+        //     $http({
+        //         method: 'POST',
+        //         url: '/web1/controllers/busquedaController.php',
+        //         data: { op : operacion, provincia : $scope.provinciaABuscar, partido : $scope.partidoABuscar },
+        //     }).then(function successCallback(response) {
+        //             console.log(response)
+        //     }, function errorCallback(response) {
+        //         console.error('Error')
+        //     });
+        // }
+    })
+
+    app.controller('paginaMostrarResultados', function($scope, $routeParams, $http) {
+        let parametroOperacion = $routeParams.p1;
+        let parametroProvincia = $routeParams.p2;
+        let parametroPartido = $routeParams.p3;
+        let parametroOrden = $routeParams.p4;
+
+        // ver esto
+        $scope.a = $routeParams.p1;
+        $scope.b = $routeParams.p3;
+
+        $scope.propiedades = [];
+        $scope.op = ($routeParams.p1 == 1) ? 'Venta' : 'Alquiler';
+        $http({
+            method: 'POST',
+            url: '/web1/controllers/busquedaController.php',
+            data: { pOperacion : parametroOperacion, pProvincia : parametroProvincia, pPartido : parametroPartido, pOrden : parametroOrden },
+        }).then(function successCallback(response) {
+            response.data.forEach((x) => {
+                $scope.propiedades.push(x)
+            })
+            $scope.cantidadResultados = $scope.propiedades.length;
+        }, function errorCallback(response) {
+            console.error(response)
+        });
+
+    })
 
         app.controller('formAltaPropiedad', function($scope, $http) {
 

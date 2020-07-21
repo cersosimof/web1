@@ -72,13 +72,17 @@
     background-position: bottom;
 }
 
-.botonSeleccionado {
-    background-color: black;
+.selectOperacionBotones {
+    background-color: darkgrey;
+    border: none;
+    color: black;
 }
 
-.botonNoSeleccionado {
-    background-color: #6c757d;
+.botonSeleccionado {
+    background-color: olivedrab;
+    color: white;
 }
+
 
 .tituloPrincipal {
     border-bottom: 1px solid olivedrab;
@@ -91,4 +95,51 @@
     background-color: olive;
     border: none;
     width: 100%;
+}
+
+.elementoBuscadorPrincipal {
+    width: 25%;
+    padding: 5px 10px;
+    height: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.cardInfoPropiedades{
+    height: 140px;
+    margin: 10px;
+    background-color: WhiteSmoke;
+    display: flex;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.cardInfoPropiedades .parteFoto {
+    width: 25%;
+    background-color: red;
+}
+
+.cardInfoPropiedades .parteInformacion {
+    width: 75%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.cardInfoPropiedades .parteInformacion h5, h6 {
+    text-decoration: none !important;
+    color : black;
+}
+
+a.cardInfoPropiedades {
+
+}
+
+a.cardInfoPropiedades:hover {
+    text-decoration:none;
+    font-weight:bold;
+    background-color: lightblue;
 }

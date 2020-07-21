@@ -91,6 +91,51 @@ public function traerPartidos(){
         } else {
             return 0;
         }
+    }
+
+    public function traerTodasLasPropiedades($operacion, $partido, $orden) {
+        $listaPropiedadesCompleto = [];
+        $link = $this->abrirConexion();
+
+        //Veridicador de partido
+        if($partido == 0) {
+            $partidoABuscar = " 1 = 1";
+        } else {
+            $partidoABuscar = "D.id_partido = '$partido'";
+        }
+
+        if($orden==0) {
+
+            $ordenABuscar = '';
+        } else if($orden==1){
+            $ordenABuscar = ' ORDER BY D.precio ASC';
+        } else if($orden==2){
+            $ordenABuscar = ' ORDER BY D.precio DESC';
+        } else if($orden==3){
+            $ordenABuscar = ' ORDER BY D.m2 ASC';
+        } else if($orden==4){
+            $ordenABuscar = ' ORDER BY D.m2 DESC';
+        }
+
+        $sqlTraerTodasLasPropiedades = "SELECT D.id, Pr.nombre AS provincia, P.partido, O.operacion, D.precio, D.m2, U.usuario, D.tipo, D.descripcion, D.direccion
+                                        FROM departamentos D
+                                        left join partidos_bsas P
+                                        on D.id_partido = P.id
+                                        LEFT JOIN operaciones O
+                                        on D.id_operacion = O.id
+                                        LEFT JOIN provincias Pr
+                                        ON D.id_provincia = Pr.id
+                                        LEFT JOIN usuarios U
+                                        ON D.id_usuario = U.id
+                                        WHERE D.id_operacion = $operacion AND
+                                        $partidoABuscar
+                                        $ordenABuscar
+                                        ";
+        $ejecutarBusquedaUsuario = mysqli_query($link, $sqlTraerTodasLasPropiedades);
+        while($propiedad = mysqli_fetch_assoc($ejecutarBusquedaUsuario)) {
+            $listaPropiedadesCompleto[] = $propiedad;
+        }
+        return $listaPropiedadesCompleto;
 
     }
 
