@@ -2,21 +2,34 @@
 <?php
 
 require_once("../models/ConnectDB.php");
-
-if( (isset($_POST["nombre"])) && (isset($_POST["apellido"])) && (isset($_POST["usuario"])) && (isset($_POST["correo"])) && (isset($_POST["clave"])) ) {
-    $nombre = $_POST["nombre"];
-    $apellido = $_POST["apellido"];
-    $usuario = $_POST["usuario"];
-    $correo = $_POST["correo"];
-    $clave = $_POST["clave"];
+require_once ("../Util/Utils.php");
 
 
-    $connect = new ConnectDB();
-    $d = $connect->ingresarNuevoUsuario($nombre, $apellido, $usuario, $correo, $clave);
-    if($d == 1){
-        echo "se cargo correctamente";
-    }
+$postdata = file_get_contents("php://input");
+$request = json_decode($postdata);
+
+$nombre = $request->nombre;
+$apellido = $request->apellido;
+$usuario = $request->usuario;
+$correo = $request->correo;
+$c1 = $request->claveUno;
+$c2 = $request->claveDos;
+
+if($c1 != $c2){
+    $obj = (object) array('estado' => 'error', 'descripcion' => 'Las contraseñas no son iguales');
+    output($obj);
 }
 
-require_once("../views/AltaUsuarioVista.php");
+    $connect = new ConnectDB();
+    $d = $connect->ingresarNuevoUsuario($nombre, $apellido, $usuario, $correo, $c1);
+
+    if($d == 1){
+        session_start();
+        $_SESSION["usuario"] = $usuario;
+        $obj = (object) array('estado' => 'OK', 'descripcion' => 'El usuario se cargo correctamente');
+        output($obj);
+    }
+
+
+//require_once("../views/AltaUsuarioVista.php");
 ?>

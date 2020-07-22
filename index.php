@@ -72,7 +72,8 @@
     app.config(   function($routeProvider) {
         $routeProvider
             .when("/", {
-                templateUrl : "controllers/homeController.php"
+                templateUrl : "controllers/homeController.php",
+                controller : 'paginaPrincipalController'
             })
             .when("/altaUsuario", {
                 templateUrl : "views/AltaUsuarioVista.php"
@@ -89,9 +90,14 @@
             })
     });
 
+        app.controller('paginaPrincipalController', function ($scope) {
+            // location.reload();
+            console.log("Bienvenido")
+        })
+
 
         app.controller('loginForm', function ($scope, $http) {
-            $scope.titulo = "Bienvenido, soy el titulo"
+            $scope.titulo = "Bienvenido, ingrese los datos para ingresar, o registrese."
             $scope.enviarDatosLogin = function () {
                 $http({
                     method: 'POST',
@@ -112,16 +118,33 @@
 
 
 
-        app.controller('altaUsuario', function($scope) {
-            $scope.saludar = function () {
-                alert('saludar')
+        app.controller('altaUsuario', function($scope, $http) {
+            $scope.altaNuevoUsuario = function () {
+                $http({
+                    method: 'POST',
+                    url: '/web1/controllers/AltaUsuarioController.php',
+                    data: { nombre : $scope.nombreNuevoUsuario,
+                            apellido : $scope.apellidoNuevoUsuario,
+                            usuario : $scope.usuarioNuevoUsuario,
+                            correo : $scope.correoNuevoUsuario,
+                            claveUno : $scope.clave1NuevoUsuario,
+                            claveDos : $scope.clave2NuevoUsuario },
+                }).then(function successCallback(response) {
+                    if(response.data.estado == "OK"){
+                        alert(response.data.descripcion)
+                        location.href = "/web1/"
+                    } else {
+                        alert(response.data.descripcion)
+                    }
+                }, function errorCallback(response) {
+                    console.error(response)
+                });
             }
         })
 
+
     app.controller('controladorBuscador', function($scope, $http){
         let operacion = 1;
-        let provincia = 1;
-        let partido = 0;
 
         $scope.activarOperacion = function (op) {
             operacion = op
@@ -138,22 +161,10 @@
             }
         }
 
-
-
         $scope.enviarBusqueda = function (){
-
-            location.href = '#!/busqueda/'+ provincia +'/'+$scope.provinciaABuscar+'/'+$scope.partidoABuscar+'/0';
+            location.href = '#!/busqueda/'+ operacion +'/'+$scope.provinciaABuscar+'/'+$scope.partidoABuscar+'/0';
         }
-        //     $http({
-        //         method: 'POST',
-        //         url: '/web1/controllers/busquedaController.php',
-        //         data: { op : operacion, provincia : $scope.provinciaABuscar, partido : $scope.partidoABuscar },
-        //     }).then(function successCallback(response) {
-        //             console.log(response)
-        //     }, function errorCallback(response) {
-        //         console.error('Error')
-        //     });
-        // }
+
     })
 
     app.controller('paginaMostrarResultados', function($scope, $routeParams, $http) {
@@ -162,7 +173,7 @@
         let parametroPartido = $routeParams.p3;
         let parametroOrden = $routeParams.p4;
 
-        // ver esto
+        // TODO: Ver que no se envien los parametros asi
         $scope.a = $routeParams.p1;
         $scope.b = $routeParams.p3;
 
@@ -204,14 +215,14 @@
                     url: '/web1/controllers/procesarAltaPropiedad.php',
                     data: propiedad,
                 }).then(function successCallback(response) {
-                    if(response.data == 1) {
+                    if(response.data == "1") {
                         alert("El registro se cargo correctamente");
                         location.reload();
                     } else {
                         alert("Problema al cargar el registro")
                     }
                 }, function errorCallback(response) {
-                    console.error('Error')
+                    console.error(response)
                 });
             }
         })

@@ -105,7 +105,6 @@ public function traerPartidos(){
         }
 
         if($orden==0) {
-
             $ordenABuscar = '';
         } else if($orden==1){
             $ordenABuscar = ' ORDER BY D.precio ASC';

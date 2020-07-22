@@ -2,16 +2,25 @@
 <div class="contenedorColumnas">
     <div class="columnaUno" style="padding: 10px;">
         <h5 class="tituloPrincipal"> Filtros:</h5>
-        <p>Operacion: {{op}}.</p>
 
-        <ul>
-            <li><a href="#!/busqueda/{{a}}/1/{{b}}/1">PR ASC</a></li>
-            <li><a href="#!/busqueda/{{a}}/1/{{b}}/2">PR DESC</a></li>
-            <li><a href="#!/busqueda/{{a}}/1/{{b}}/3">M2 ASC</a></li>
-            <li><a href="#!/busqueda/{{a}}/1/{{b}}/4">M2 DESC</a></li>
+        <label for="filtroOperacion">Operacion</label>
+        <ul id="filtroOperacion">
+            <li>{{op}}</li>
+        </ul>
+
+        <label for="filtroPrecio">Precio</label>
+        <ul id="filtroPrecio">
+            <li><a href="#!/busqueda/{{a}}/1/{{b}}/1">Ascendente</a></li>
+            <li><a href="#!/busqueda/{{a}}/1/{{b}}/2">Descendente</a></li>
+        </ul>
+        <label for="filtroTamano"> Tamaño </label>
+        <ul id="filtroTamano">
+            <li><a href="#!/busqueda/{{a}}/1/{{b}}/3">Ascendente</a></li>
+            <li><a href="#!/busqueda/{{a}}/1/{{b}}/4">Descendente</a></li>
 
         </ul>
     </div>
+
     <div class="columnaDos" style="width: 100%">
         <h4 class="tituloPrincipal"> Resultados ({{cantidadResultados}}) </h4>
         <div id="contenedorDePropiedades" ng-if="cantidadResultados>0">
@@ -28,7 +37,6 @@
         </a>
         </div>
         <div ng-if="cantidadResultados==0"> No se encontraron resultados.</div>
-
     </div>
 </div>
 

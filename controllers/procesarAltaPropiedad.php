@@ -21,6 +21,7 @@ if(isset($_SESSION["usuario"])){
 
 $altaPropiedad = $connect->insertarNuevaPropiedad($operacion, $provincia, $partido, $tipo, $direccion, $precio, $tamano, $descripcion, $usuario);
 
+echo $altaPropiedad;
 //print_r($altaPropiedad);
 //    echo $operacion . $provincia . $partido . $tipo . $direccion . $precio . $tamano . $descripcion . $usuario;
 
