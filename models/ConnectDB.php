@@ -77,7 +77,7 @@ public function traerPartidos(){
     return $buenosAires;
 }
     // INSERTAR NUEVA PROPIEDAD
-    public function insertarNuevaPropiedad($operacion, $provincia, $partido, $tipo, $direccion, $precio, $tamano, $descripcion, $usuario) {
+    public function insertarNuevaPropiedad($operacion, $provincia, $partido, $tipo, $direccion, $precio, $tamano, $descripcion, $usuario, $foto) {
         $link = $this->abrirConexion();
 
         $sqlBuscarUsuario = "SELECT id FROM usuarios WHERE usuario = '$usuario'";
@@ -85,9 +85,9 @@ public function traerPartidos(){
         $idUsuario = mysqli_fetch_assoc($ejecutarBusquedaUsuario);
         $usuario =  $idUsuario["id"];
 
-        $sql = "INSERT INTO departamentos (id, id_operacion, id_provincia, id_partido, direccion, descripcion, id_usuario, precio, m2, tipo) VALUES (NULL, '$operacion', '$provincia', '$partido', '$direccion', '$descripcion', '$usuario', '$precio', '$tamano', '$tipo');";
+        $sql = "INSERT INTO departamentos (id, id_operacion, id_provincia, id_partido, direccion, descripcion, id_usuario, precio, m2, tipo, imagen) VALUES (NULL, '$operacion', '$provincia', '$partido', '$direccion', '$descripcion', '$usuario', '$precio', '$tamano', '$tipo', '$foto');";
         if (mysqli_query($link, $sql)) {
-            return 1;
+            return mysqli_insert_id($link);
         } else {
             return 0;
         }
@@ -116,7 +116,7 @@ public function traerPartidos(){
             $ordenABuscar = ' ORDER BY D.m2 DESC';
         }
 
-        $sqlTraerTodasLasPropiedades = "SELECT D.id, Pr.nombre AS provincia, P.partido, O.operacion, D.precio, D.m2, U.usuario, D.tipo, D.descripcion, D.direccion
+        $sqlTraerTodasLasPropiedades = "SELECT D.id, Pr.nombre AS provincia, P.partido, O.operacion, D.precio, D.m2, U.usuario, D.tipo, D.descripcion, D.direccion, D.imagen
                                         FROM departamentos D
                                         left join partidos_bsas P
                                         on D.id_partido = P.id

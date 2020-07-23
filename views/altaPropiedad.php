@@ -1,12 +1,12 @@
 <?php
-session_start();
+//session_start();
 require_once("../models/ConnectDB.php");
 $connect = new ConnectDB();
 $partidos = $connect->traerPartidos();
 
 ?>
 
-<div class="pantallaLogin container" ng-controller="formAltaPropiedad">
+<div class="pantallaLogin container">
     <div class="formIngreso" >
         <h4 class="tituloPrincipal">Alta Propiedad</h4>
             <form>
@@ -95,6 +95,13 @@ $partidos = $connect->traerPartidos();
                         <textarea type="text" style="height: 100px;" class="form-control" id="altaDescripcion" ng-model="descripcionAlta" required></textarea>
                     </div>
                 </div>
+
+
+
+                <div class="col-md-4">
+                    <input type="file" file-input="files" />
+                </div>
+
 
                 <div class="btn btn-primary botonPrincipal" ng-click="enviarInfoPropiedad()">Alta</div>
             </form>

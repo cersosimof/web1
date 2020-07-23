@@ -27,12 +27,18 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
+<!--            <li class="nav-item active">-->
+<!--                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
+<!--            </li>-->
+            <?php if(isset($_SESSION["usuario"])){
+
+            ?>
             <li class="nav-item">
                 <a class="nav-link" href="#!/altaPropiedad">Publicar!</a>
             </li>
+            <?php
+            }
+            ?>
 <!--            --><?php //if(isset($_SESSION["usuario"])){ ?>
 <!--            <li class="nav-item">-->
 <!--                <a class="nav-link" href="/web1/controllers/close_session.php">Cerrar sesion</a>-->
@@ -48,7 +54,7 @@
             if(isset($_SESSION["usuario"])){
                 echo "Bienvenido " . $_SESSION["usuario"] . "!" . "<a class=\"nav-link\" href=\"/web1/controllers/close_session.php\">Cerrar sesion</a>";
             } else {
-                echo "ANONIMO" . "<a class=\"nav-link\" href=\"/web1/#!/login\">Iniciar sesion</a>";
+                echo "" . "<a class=\"nav-link\" href=\"/web1/#!/login\">Iniciar sesion</a>";
             }; ?>
           </span>
     </div>
@@ -82,7 +88,8 @@
                 templateUrl : "views/login.php"
             })
             .when("/altaPropiedad", {
-                templateUrl : "controllers/altaPropiedadController.php"
+                templateUrl : "controllers/altaPropiedadController.php",
+                controller : 'formAltaPropiedad'
             })
             .when("/busqueda/:p1/:p2/:p3/:p4", {
                 templateUrl : "views/BusquedaVista.php",
@@ -90,7 +97,9 @@
             })
     });
 
-        app.controller('paginaPrincipalController', function ($scope) {
+
+
+    app.controller('paginaPrincipalController', function ($scope) {
             // location.reload();
             console.log("Bienvenido")
         })
@@ -128,7 +137,8 @@
                             usuario : $scope.usuarioNuevoUsuario,
                             correo : $scope.correoNuevoUsuario,
                             claveUno : $scope.clave1NuevoUsuario,
-                            claveDos : $scope.clave2NuevoUsuario },
+                            claveDos : $scope.clave2NuevoUsuario,
+                            },
                 }).then(function successCallback(response) {
                     if(response.data.estado == "OK"){
                         alert(response.data.descripcion)
@@ -194,36 +204,109 @@
 
     })
 
+        //Subida de imagenes
+        app.directive("fileInput", function($parse){
+            return{
+                link: function($scope, element, attrs){
+                    element.on("change", function(event){
+                        var files = event.target.files;
+                        console.log(files[0].name);
+                        $parse(attrs.fileInput).assign($scope, element[0].files);
+                        $scope.$apply();
+                    });
+                }
+            }
+        });
+
+
+    /*
+        Alta Propiedad
+     */
         app.controller('formAltaPropiedad', function($scope, $http) {
 
             $scope.enviarInfoPropiedad = function () {
 
-                var propiedad =
-                    {
-                        operacion : $scope.operacionAlta,
-                        provincia : $scope.provinciaAlta,
-                        partido : $scope.partidoAlta,
-                        tipo : $scope.tipoAlta,
-                        direccion : $scope.direccionAlta,
-                        precio : $scope.precioAlta,
-                        tamano : $scope.tamanoAlta,
-                        descripcion : $scope.descripcionAlta
-                    }
+                //Codigo foto
+                var form_data = new FormData();
+                angular.forEach($scope.files, function(file){
+                    form_data.append('file', file);
+                });
+
+                // var propiedad =
+                //     {
+                //         operacion : $scope.operacionAlta,
+                //         provincia : $scope.provinciaAlta,
+                //         partido : $scope.partidoAlta,
+                //         tipo : $scope.tipoAlta,
+                //         direccion : $scope.direccionAlta,
+                //         precio : $scope.precioAlta,
+                //         tamano : $scope.tamanoAlta,
+                //         descripcion : $scope.descripcionAlta,
+                //     }
+
+                // alert(response.data.descripcion);
+                // if(response.data.estado == "OK"){
+                //     location.reload();
+                // }
+                // });
+                // codigo foto
+                // $http({
+                //     method: 'POST',
+                //     url: '/web1/controllers/procesarAltaPropiedad.php',
+                //     data: propiedad,
+                // }).then(function successCallback(response) {
+                //     console.log(response);
+                //     alert(response.data.descripcion);
+                //     if(response.data.id != 0){
+
+                //     }
+                // }, function errorCallback(response) {
+                //     console.error(response)
+                // });
+
 
                 $http({
-                    method: 'POST',
-                    url: '/web1/controllers/procesarAltaPropiedad.php',
-                    data: propiedad,
+                    method : 'POST',
+                    url : '/web1/controllers/procesarAltaPropiedad2.php',
+                    data: form_data,
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined,'Process-Data': false}
                 }).then(function successCallback(response) {
-                    if(response.data == "1") {
-                        alert("El registro se cargo correctamente");
-                        location.reload();
-                    } else {
-                        alert("Problema al cargar el registro")
-                    }
+                    var propiedad =
+                        {
+                            operacion : $scope.operacionAlta,
+                            provincia : $scope.provinciaAlta,
+                            partido : $scope.partidoAlta,
+                            tipo : $scope.tipoAlta,
+                            direccion : $scope.direccionAlta,
+                            precio : $scope.precioAlta,
+                            tamano : $scope.tamanoAlta,
+                            descripcion : $scope.descripcionAlta,
+                            foto : response.data
+                        }
+
+
+                        $http({
+                            method: 'POST',
+                            url: '/web1/controllers/procesarAltaPropiedad.php',
+                            data: propiedad,
+                        }).then(function successCallback(response) {
+                            console.log(response);
+                            alert(response.data.descripcion);
+                            if(response.data.id != 0){
+                                alert(response.data.descripcion)
+                            }
+                            // location.reload();
+                        }, function errorCallback(response) {
+                            console.error(response)
+                        });
+
+
                 }, function errorCallback(response) {
                     console.error(response)
                 });
+
+
             }
         })
 

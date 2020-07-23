@@ -45,7 +45,7 @@
     justify-content: center;
     height: 100vh;
     align-items: center;
-    background-image: url(ruta.jpg);
+    /*background-image: url(ruta.jpg);*/
     background-position: bottom;
     width: 100%;
 }
