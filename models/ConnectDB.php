@@ -138,6 +138,28 @@ public function traerPartidos(){
 
     }
 
+    public function traerUnaPropiedad($propiedad) {
+        $link = $this->abrirConexion();
+
+        $sqlTraerUnaPropiedad = "SELECT D.id, Pr.nombre AS provincia, P.partido, O.operacion, D.precio, D.m2, U.usuario, D.tipo, D.descripcion, D.direccion, D.imagen
+                                        FROM departamentos D
+                                        left join partidos_bsas P
+                                        on D.id_partido = P.id
+                                        LEFT JOIN operaciones O
+                                        on D.id_operacion = O.id
+                                        LEFT JOIN provincias Pr
+                                        ON D.id_provincia = Pr.id
+                                        LEFT JOIN usuarios U
+                                        ON D.id_usuario = U.id
+                                        WHERE D.id = $propiedad";
+
+        $ejecutarBusquedaUsuario = mysqli_query($link, $sqlTraerUnaPropiedad);
+        $propiedad = mysqli_fetch_assoc($ejecutarBusquedaUsuario);
+
+        return $propiedad;
+
+    }
+
 }
 
 

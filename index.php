@@ -12,6 +12,7 @@
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="/web1/fontawesome-free-5.13.0-web/css/fontawesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 
@@ -95,8 +96,11 @@
                 templateUrl : "views/BusquedaVista.php",
                 controller : 'paginaMostrarResultados'
             })
+            .when("/propiedad/:p1", {
+                templateUrl : "views/vistaPropiedad.php",
+                controller : 'vistaPropiedadController'
+            })
     });
-
 
 
     app.controller('paginaPrincipalController', function ($scope) {
@@ -219,6 +223,23 @@
         });
 
 
+        app.controller('vistaPropiedadController', function ($scope, $routeParams, $http) {
+            let propiedad = $routeParams.p1;
+
+            $http({
+                method: 'POST',
+                url: '/web1/controllers/traerUnaPropiedadController.php',
+                data: { pPropiedad : $routeParams.p1 },
+            }).then(function successCallback(response) {
+                $scope.datosPropiedad = response.data;
+                console.log(response.data)
+            }, function errorCallback(response) {
+                console.error(response)
+            });
+
+        })
+
+
     /*
         Alta Propiedad
      */
@@ -226,43 +247,10 @@
 
             $scope.enviarInfoPropiedad = function () {
 
-                //Codigo foto
                 var form_data = new FormData();
                 angular.forEach($scope.files, function(file){
                     form_data.append('file', file);
                 });
-
-                // var propiedad =
-                //     {
-                //         operacion : $scope.operacionAlta,
-                //         provincia : $scope.provinciaAlta,
-                //         partido : $scope.partidoAlta,
-                //         tipo : $scope.tipoAlta,
-                //         direccion : $scope.direccionAlta,
-                //         precio : $scope.precioAlta,
-                //         tamano : $scope.tamanoAlta,
-                //         descripcion : $scope.descripcionAlta,
-                //     }
-
-                // alert(response.data.descripcion);
-                // if(response.data.estado == "OK"){
-                //     location.reload();
-                // }
-                // });
-                // codigo foto
-                // $http({
-                //     method: 'POST',
-                //     url: '/web1/controllers/procesarAltaPropiedad.php',
-                //     data: propiedad,
-                // }).then(function successCallback(response) {
-                //     console.log(response);
-                //     alert(response.data.descripcion);
-                //     if(response.data.id != 0){
-
-                //     }
-                // }, function errorCallback(response) {
-                //     console.error(response)
-                // });
 
 
                 $http({
@@ -312,3 +300,4 @@
 
 
 </script>
+<script src="/web1/fontawesome-free-5.13.0-web/js/all.js"></script>

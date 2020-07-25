@@ -7,17 +7,6 @@ $connect = new ConnectDB();
 
 if(isset($_SESSION["usuario"])){
 
-//    if(!empty($_FILES))
-//    {
-//        //Linea que le dice a donde subirla.
-//        $path = '../imagenesPropiedades/' . $_FILES['file']['name'];
-//        //Linea que sube la imagen a mi carpeta.
-//        move_uploaded_file($_FILES['file']['tmp_name'], $path);
-//    }
-//    else
-//    {
-//        echo 'Some Error';
-//    }
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
 
