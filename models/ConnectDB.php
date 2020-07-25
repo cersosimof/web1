@@ -8,11 +8,19 @@ class ConnectDB {
 
     function __construct()
     {
-        $this->user = 'root';
-        $this->pass = '';
+        $this->user = 'id14462825_cersosimof';
+        $this->pass = 's2]sF7aOQwg^J!M@';
         $this->host = 'localhost';
-        $this->db = 'web1';
+        $this->db = 'id14462825_web1';
     }
+
+//    function __construct()
+//    {
+//        $this->user = 'root';
+//        $this->pass = '';
+//        $this->host = 'localhost';
+//        $this->db = 'web1';
+//    }
 
     private function abrirConexion()
     {
