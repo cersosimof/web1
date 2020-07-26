@@ -1,5 +1,10 @@
 <?php
 session_start();
 session_destroy();
-header ('Location:/web1/');
+include("../VariablesEntorno.php");
+if(Constants::ENTORNO == "dev"){
+    header ('Location:/web1/');
+}else{
+    header ('Location:/');
+}
 ?>

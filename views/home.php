@@ -1,7 +1,8 @@
+<?php
+include_once("../VariablesEntorno.php");
+?>
+
 <div class="contenedorColumnas">
-<!--    <div class="columnaUno">-->
-<!--        sdfs-->
-<!--    </div>-->
     <div class="columnaDos" style="width: 100%">
         <div class="jumbotron" ng-controller="controladorBuscador">
             <h1 class="display-4">Buscador:</h1>
@@ -49,17 +50,29 @@
         </div>
 
         <h4 class="tituloPrincipal">Ultimos ingresos</h4>
-        <div class="contenedorCards">
-            <div class="cardProducto">
+
+        <div class="contenedorCards" ng-controller="mostrar4Propiedades">
+
+            <a <a href="#!/propiedad/{{propiedad.id}}" class="cardProducto" ng-repeat="propiedad in cuatroPropiedades">
                 <div class="card" style="width: 18rem;">
-                    <img src="../casa.webp" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
+
+                    <?php
+                    if (Constants::ENTORNO == "dev") {
+                        echo '<img src="../web1/imagenesPropiedades/{{propiedad.imagen}}" class="card-img-top" style="height: 170px;">';
+                    } else {
+                        echo '<img src="../imagenesPropiedades/{{propiedad.imagen}}" class="card-img-top" style="height: 170px;">';
+                    }
+                    ?>
+                    <div class="card-body" style="padding: 6px; width: 100%">
+                        <h5 class="card-title">{{propiedad.operacion}} - {{propiedad.partido}}</h5>
+                        <h6 class="sacarEfectos">Direccion: {{propiedad.direccion}}</h6>
+                        <h6>Tamaño: {{propiedad.m2}} M2</h6>
+                        <h6 style="color: green">Costo Mes:$ {{propiedad.precio}}.-</h6>
+
                     </div>
                 </div>
-            </div>
+            </a>
+
         </div>
     </div>
 </div>

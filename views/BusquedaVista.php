@@ -26,7 +26,7 @@
         <div id="contenedorDePropiedades" ng-if="cantidadResultados>0">
         <a class="cardInfoPropiedades" ng-repeat="propiedad in propiedades" href="#!/propiedad/{{propiedad.id}}">
             <div class="parteFoto">
-                <img width="100%" height="100%" src="../web1/imagenesPropiedades/{{propiedad.imagen}}">
+                <img width="100%" height="100%" src="{{path}}imagenesPropiedades/{{propiedad.imagen}}">
             </div>
             <div class="parteInformacion">
             <h5 style="text-decoration: none;">{{propiedad.provincia}} - {{propiedad.partido}} - {{propiedad.m2}}m2</h5>

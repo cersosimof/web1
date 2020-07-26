@@ -36,17 +36,14 @@
 .loginForm {
     display: flex;
     flex-direction: column;
-    width: 20%;
 }
 
 .contenedorLogin {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 100vh;
+    height: 100%;
     align-items: center;
-    /*background-image: url(ruta.jpg);*/
-    background-position: bottom;
     width: 100%;
 }
 
@@ -65,11 +62,11 @@
 }
 
 .imagenIngreso {
-    width: 40%;
-    background-image: url(gente.jpg);
-    margin: 30px;
-    border-radius: 5%;
-    background-position: bottom;
+    /*width: 40%;*/
+    /*background-image: url(altaPropiedad.jpg);*/
+    /*margin: 30px;*/
+    /*border-radius: 5%;*/
+    background-position: center;
 }
 
 .selectOperacionBotones {
@@ -141,5 +138,14 @@ a.cardInfoPropiedades {
 a.cardInfoPropiedades:hover {
     text-decoration:none;
     font-weight:bold;
+    background-color: lightblue;
+}
+
+a.cardProducto:hover{
+    text-decoration:none;
+
+}
+
+.card:hover{
     background-color: lightblue;
 }
