@@ -5,7 +5,7 @@ require_once ("../Util/Utils.php");
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 $usuario = $request->usuario;
-$clave = $request->clave;
+$clave = md5($request->clave);
 
 $connect = new ConnectDB();
 $persona = $connect->loguearUsuario($usuario, $clave);

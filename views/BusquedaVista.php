@@ -1,5 +1,5 @@
 
-<div class="contenedorColumnas">
+<div class="contenedorColumnas" style="height: 90vh">
     <div class="columnaUno" style="padding: 10px;">
         <h5 class="tituloPrincipal"> Filtros:</h5>
 
@@ -17,12 +17,18 @@
         <ul id="filtroTamano">
             <li><a href="#!/busqueda/{{a}}/1/{{b}}/3">Ascendente</a></li>
             <li><a href="#!/busqueda/{{a}}/1/{{b}}/4">Descendente</a></li>
-
         </ul>
+        <label for="filtroTipo"> Tipo (no funciona) </label>
+        <ul id="filtrotipo">
+            <li><a href="#!/busqueda/{{a}}/1/{{b}}/3">CASA</a></li>
+            <li><a href="#!/busqueda/{{a}}/1/{{b}}/4">DEPARTAMENTO</a></li>
+            <li><a href="#!/busqueda/{{a}}/1/{{b}}/4">PH</a></li>
+        </ul>
+
     </div>
 
-    <div class="columnaDos" style="width: 100%">
-        <h4 class="tituloPrincipal"> Resultados ({{cantidadResultados}}) </h4>
+    <div class="columnaDos" style="width: 100%; overflow: auto">
+        <h4 class="tituloPrincipal" style="position: sticky; top: 0; background-color: white"> Resultados ({{cantidadResultados}}) </h4>
         <div id="contenedorDePropiedades" ng-if="cantidadResultados>0">
         <a class="cardInfoPropiedades" ng-repeat="propiedad in propiedades" href="#!/propiedad/{{propiedad.id}}">
             <div class="parteFoto">

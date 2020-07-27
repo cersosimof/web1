@@ -7,10 +7,9 @@ include("../VariablesEntorno.php");
     <div class="columnaUno" style="padding: 10px; width: 50%">
         <div class="contenedorLogin">
             <div class="loginForm">
-                <div ng-controller="loginForm">
-
+                <div>
                     <div class="text-center mb-4">
-                        <p style="color: darkolivegreen">{{titulo}}</p>
+                        <p style="color: darkolivegreen">{{mensaje}}</p>
                     </div>
 
                     <div class="form-label-group">

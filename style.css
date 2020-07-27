@@ -131,9 +131,6 @@
     color : black;
 }
 
-a.cardInfoPropiedades {
-
-}
 
 a.cardInfoPropiedades:hover {
     text-decoration:none;
@@ -143,9 +140,17 @@ a.cardInfoPropiedades:hover {
 
 a.cardProducto:hover{
     text-decoration:none;
-
 }
 
 .card:hover{
     background-color: lightblue;
 }
+
+.estiloMensajeRecibido {
+    background-color: white;
+    color: grey;
+    font-size: 11px;
+    padding: 10px;
+    border-bottom: 1px solid olivedrab;
+}
+

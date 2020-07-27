@@ -206,6 +206,42 @@ class ConnectDB
 
     }
 
+    // Insertar nuevo comentario
+    public function insertarComentario($nombreUsuario, $idPropiedad, $mensaje)
+    {
+        $link = $this->abrirConexion();
+
+        $sqlBuscarUsuario = "SELECT id FROM usuarios WHERE usuario = '$nombreUsuario'";
+        $ejecutarBusquedaUsuario = mysqli_query($link, $sqlBuscarUsuario);
+        $us = mysqli_fetch_assoc($ejecutarBusquedaUsuario);
+        $idUsuario = $us["id"];
+
+        $sqlInsertarMensaje = "INSERT INTO mensajes_propiedades VALUES (null, '$idUsuario', '$idPropiedad', '$mensaje')";
+
+        if (mysqli_query($link, $sqlInsertarMensaje)) {
+            return mysqli_insert_id($link);
+        } else {
+            return 0;
+        }
+    }
+
+    public function traerMensajes($idPropiedad)
+    {
+        $listaMensajes = [];
+        $link = $this->abrirConexion();
+        $queryBuscarMensajes = mysqli_query($link, "SELECT M.id, U.usuario, M.mensaje
+                                                            FROM mensajes_propiedades M
+                                                            LEFT JOIN usuarios U
+                                                            ON M.id_usuario = U.id
+                                                            WHERE M.id_propiedad = '$idPropiedad'");
+
+        while ($fila = mysqli_fetch_assoc($queryBuscarMensajes)) {
+            $listaMensajes[] = $fila;
+        }
+
+        return $listaMensajes;
+    }
+
 }
 
 

@@ -6,7 +6,7 @@ $partidos = $connect->traerPartidos();
 
 
 if (!isset($_SESSION["usuario"])) {
-    require_once("../views/login.php");
+    require_once("../views/LoginView.php");
 } else {
 
 
