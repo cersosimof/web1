@@ -92,6 +92,8 @@
     background-color: olive;
     border: none;
     width: 100%;
+    color: #F8F8F8;
+    font-weight: bold;
 }
 
 .elementoBuscadorPrincipal {
@@ -152,5 +154,19 @@ a.cardProducto:hover{
     font-size: 11px;
     padding: 10px;
     border-bottom: 1px solid olivedrab;
+}
+
+.efectoMensaje_0 {
+    background-color: white;
+    color: olive;
+    font-size: 11px;
+    padding: 10px;
+}
+
+.efectoMensaje_1 {
+    background-color: olive;
+    color: white;
+    font-size: 11px;
+    padding: 10px;
 }
 

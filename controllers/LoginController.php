@@ -13,8 +13,16 @@ $persona = $connect->loguearUsuario($usuario, $clave);
 if($persona===null){
     output(0, 201);
 } else {
-    session_start();
-    $_SESSION["usuario"] = $persona["usuario"];
-    output(1, 201);
+    if($persona["usuario"] == "cersosimof"){
+        session_start();
+        $_SESSION["usuario"] = $persona["usuario"];
+        $obj = (object) array('idd' => '123', 'ruta' => 'Administrador.php');
+        output($obj, 201);
+    } else {
+        session_start();
+        $_SESSION["usuario"] = $persona["usuario"];
+        output(1, 201);
+    }
+
 }
 

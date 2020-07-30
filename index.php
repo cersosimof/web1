@@ -159,8 +159,12 @@
                 url: miPath + 'controllers/LoginController.php',
                 data: { usuario: $scope.usuarioLogin, clave: $scope.passLogin },
             }).then(function successCallback(response) {
+                console.log(response.data)
                 if (response.data === 0) {
                     alert("No se encontraron coincidencias en su busqueda.")
+                } else if (response.data.idd == 123){
+                    console.log("esta aca")
+                    location.href = miPath + 'controllers/' + response.data.ruta;
                 } else {
                     location.href = miPath;
                 }
@@ -240,6 +244,10 @@
     // DETALLE DE UNA PROPIEDAD
     app.controller('vistaPropiedadController', function ($scope, $routeParams, $http) {
 
+        $scope.listaMensajes = [];
+        $scope.botonEnviarMensaje = "Enviar";
+
+
         $http({
             method: 'POST',
             url: miPath + '/controllers/traerUnaPropiedadController.php',
@@ -250,7 +258,6 @@
             console.error(response)
         });
 
-        $scope.listaMensajes = [];
         $http({
             method: 'POST',
             url: miPath + '/controllers/TraerMensajesPropiedadAJAX.php',
@@ -265,16 +272,27 @@
         });
 
         $scope.enviarComentario = function ($usuario) {
-            $http({
-                method: 'POST',
-                url: miPath + 'controllers/CargarComentarioAJAX.php',
-                data: { propiedad: $routeParams.p1, usuario : $usuario, mensaje : $scope.textoComentario },
-            }).then(function successCallback(response) {
-                console.log(response.data);
-            }, function errorCallback(response) {
-                console.error(response)
-            });
+            if($scope.textoComentario != "") {
+                $scope.botonEnviarMensaje = "Enviando...";
+                $http({
+                    method: 'POST',
+                    url: miPath + 'controllers/CargarComentarioAJAX.php',
+                    data: { propiedad: $routeParams.p1, usuario : $usuario, mensaje : $scope.textoComentario },
+                }).then(function successCallback(response) {
+                    $scope.listaMensajes.push({ id : $routeParams.p1, usuario : $usuario, mensaje : $scope.textoComentario, fecha : "Hace unos instantes..." })
+                    $scope.textoComentario = "";
+                    $scope.botonEnviarMensaje = "Enviar";
+                }, function errorCallback(response) {
+                    console.error(response)
+                    $scope.botonEnviarMensaje = "Enviar";
+                });
+            } else {
+                alert("Ingrese un texto a enviar")
+            }
+
         }
+
+        console.log($scope.listaMensajes)
     })
 
     // FORMULARIO DE ALTA DE PROPIEDAD

@@ -215,8 +215,11 @@ class ConnectDB
         $ejecutarBusquedaUsuario = mysqli_query($link, $sqlBuscarUsuario);
         $us = mysqli_fetch_assoc($ejecutarBusquedaUsuario);
         $idUsuario = $us["id"];
+        date_default_timezone_set('UTC');
+        $fecha_actual = new DateTime("America/Argentina/Buenos_Aires");
+        $cadena_fecha_actual = $fecha_actual->format("d/m/Y, g:i a");
 
-        $sqlInsertarMensaje = "INSERT INTO mensajes_propiedades VALUES (null, '$idUsuario', '$idPropiedad', '$mensaje')";
+        $sqlInsertarMensaje = "INSERT INTO mensajes_propiedades VALUES (null, '$idUsuario', '$idPropiedad', '$mensaje', '$cadena_fecha_actual')";
 
         if (mysqli_query($link, $sqlInsertarMensaje)) {
             return mysqli_insert_id($link);
@@ -229,7 +232,7 @@ class ConnectDB
     {
         $listaMensajes = [];
         $link = $this->abrirConexion();
-        $queryBuscarMensajes = mysqli_query($link, "SELECT M.id, U.usuario, M.mensaje
+        $queryBuscarMensajes = mysqli_query($link, "SELECT M.id, U.usuario, M.mensaje, M.fecha
                                                             FROM mensajes_propiedades M
                                                             LEFT JOIN usuarios U
                                                             ON M.id_usuario = U.id
@@ -240,6 +243,31 @@ class ConnectDB
         }
 
         return $listaMensajes;
+    }
+
+
+    public function traerTodasLasPropiedadesADM()
+    {
+        $listaPropiedadesCompleto = [];
+        $link = $this->abrirConexion();
+
+        $sqlTraerTodasLasPropiedades = "SELECT D.id, Pr.nombre AS provincia, P.partido, O.operacion, D.precio, D.m2, U.usuario, D.tipo, D.descripcion, D.direccion, D.imagen
+                                        FROM departamentos D
+                                        left join partidos_bsas P
+                                        on D.id_partido = P.id
+                                        LEFT JOIN operaciones O
+                                        on D.id_operacion = O.id
+                                        LEFT JOIN provincias Pr
+                                        ON D.id_provincia = Pr.id
+                                        LEFT JOIN usuarios U
+                                        ON D.id_usuario = U.id";
+
+        $ejecutarBusquedaUsuario = mysqli_query($link, $sqlTraerTodasLasPropiedades);
+        while ($propiedad = mysqli_fetch_assoc($ejecutarBusquedaUsuario)) {
+            $listaPropiedadesCompleto[] = $propiedad;
+        }
+        return $listaPropiedadesCompleto;
+
     }
 
 }

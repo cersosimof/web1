@@ -34,11 +34,16 @@ include("../VariablesEntorno.php");
             <div style="display: flex; margin-bottom: 40px;">
                 <div class="enviarNuevoMensaje" style="width: 50%;height: 30vh;display: flex;flex-direction: column;justify-content: space-between;">
                     <textarea rows="8" style="width: 100%; padding: 10px;" ng-model="textoComentario"></textarea>
-                    <button class="botonPrincipal" ng-click="enviarComentario('<?php echo $_SESSION["usuario"]; ?>')">Enviar</button>
+                    <button class="botonPrincipal" ng-click="enviarComentario('<?php echo $_SESSION["usuario"]; ?>')">{{botonEnviarMensaje}}</button>
                 </div>
                 <div class="panelDeMensajes" style="width: 50%; height: 30vh; border: 1px solid black;" >
-                    <div class="mensajeRecibido" style="padding: 10px;overflow: auto;display: flex;flex-direction: column;height: 100%;">
-                        <h6 class="estiloMensajeRecibido" ng-repeat="(key, mensaje) in listaMensajes" > {{key}} - Mensaje de {{mensaje.usuario}}: <br><br> {{mensaje.mensaje}} </h6>
+                    <div class="mensajeRecibido" style="overflow: auto;display: flex;flex-direction: column;height: 100%;">
+                        <h6  class="efectoMensaje_{{key%2}}" ng-repeat="(key, mensaje) in listaMensajes | orderBy:mensaje.id:true" >
+                            "<em>{{mensaje.mensaje}}</em>"<br><br>
+                            <span style="display: flex;flex-direction: row; justify-content: flex-end">
+                                {{mensaje.usuario}}. {{mensaje.fecha}}
+                            </span>
+                        </h6>
                     </div>
                 </div>
             </div>
