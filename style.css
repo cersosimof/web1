@@ -170,3 +170,6 @@ a.cardProducto:hover{
     padding: 10px;
 }
 
+.resaltarRow:hover {
+    background-color: lightblue !important;
+}

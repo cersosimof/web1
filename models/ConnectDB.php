@@ -181,6 +181,56 @@ class ConnectDB
 
     }
 
+    public function traerUnaPropiedadADM($propiedad)
+    {
+        $link = $this->abrirConexion();
+
+        $sqlTraerUnaPropiedad = "SELECT D.id, D.id_provincia, D.id_partido, D.id_operacion, D.precio, D.m2, U.usuario, D.tipo, D.descripcion, D.direccion, D.imagen
+                                        FROM departamentos D
+                                        left join partidos_bsas P
+                                        on D.id_partido = P.id
+                                        LEFT JOIN operaciones O
+                                        on D.id_operacion = O.id
+                                        LEFT JOIN provincias Pr
+                                        ON D.id_provincia = Pr.id
+                                        LEFT JOIN usuarios U
+                                        ON D.id_usuario = U.id
+                                        WHERE D.id = $propiedad";
+
+        $ejecutarBusquedaUsuario = mysqli_query($link, $sqlTraerUnaPropiedad);
+        $propiedad = mysqli_fetch_assoc($ejecutarBusquedaUsuario);
+
+        return $propiedad;
+
+    }
+
+    public function traerTodosLosUsuariosADM()
+    {
+        $link = $this->abrirConexion();
+        $listaUsuarios = [];
+
+        $sqlTraerUsuarios = "SELECT * FROM usuarios";
+
+        $traerUsuarios = mysqli_query($link, $sqlTraerUsuarios);
+        while ($usuario = mysqli_fetch_assoc($traerUsuarios)) {
+            $listaUsuarios[] = $usuario;
+        }
+        return $listaUsuarios;
+    }
+
+    public function traerUnUsuarioADM($id)
+    {
+        $link = $this->abrirConexion();
+
+        $traerUnUsuario = "SELECT * FROM usuarios WHERE id = '$id'";
+
+        $traerUsuario = mysqli_query($link, $traerUnUsuario);
+        $usuario = mysqli_fetch_assoc($traerUsuario);
+
+        return $usuario;
+    }
+
+
     public function traerCuatroPropiedades()
     {
         $link = $this->abrirConexion();

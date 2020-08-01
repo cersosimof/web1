@@ -93,6 +93,10 @@
                 templateUrl: "views/vistaPropiedad.php",
                 controller: 'vistaPropiedadController'
             })
+            .when("/administrador/:v1/:v2", {
+                templateUrl: "views/AdministradorVista.php",
+                controller: 'administrador'
+            })
     });
 
     // CONTROLADOR DE ENTORNO
@@ -164,7 +168,7 @@
                     alert("No se encontraron coincidencias en su busqueda.")
                 } else if (response.data.idd == 123){
                     console.log("esta aca")
-                    location.href = miPath + 'controllers/' + response.data.ruta;
+                    location.href = miPath + '#!/administrador/0/0';
                 } else {
                     location.href = miPath;
                 }
@@ -346,6 +350,238 @@
                 console.error(response)
                 $scope.textoBoton = "Enviar"
             });
+        }
+    })
+
+    // ADMINISTRADOR
+    app.controller('administrador', function ($scope, $http, $routeParams) {
+
+        let producto = $routeParams.v1;
+        let id = $routeParams.v2;
+
+        $scope.productoVisible = $routeParams.v1;
+
+
+        // SI ES 1 MODIFICA PROPIEDADES
+        if($routeParams.v1 == 1){
+            $http({
+                method: 'POST',
+                url: miPath + 'controllers/Administrador.php',
+                data: {
+                    productoP : producto,
+                    idP : id
+                },
+            }).then(function successCallback(response) {
+                $scope.operacion = response.data.id_operacion
+                $scope.provincia = response.data.id_provincia
+                $scope.partido = response.data.id_partido
+                $scope.tipo_ = response.data.tipo
+                $scope.direccion = response.data.direccion
+                $scope.precio = response.data.precio
+                $scope.tamano = response.data.m2
+                $scope.descripcion = response.data.descripcion
+                $scope.foto = response.data.imagen
+
+                // OPERACIONES
+                $scope.myoptions = [
+                    {value: 1, label: 'Venta'},
+                    {value: 2, label: 'Alquiler'}
+                ];
+                $scope.myvar = $scope.myoptions[$scope.operacion-1];
+
+                // PROVINCIA
+                $scope.arrayProvincias = [
+                    {value: 1, label: 'Buenos Aires'},
+
+                ];
+                $scope.provincias = $scope.arrayProvincias[$scope.provincia-1];
+
+                // PARTIDO
+                $scope.arrayPartido = [
+                    { value: 0, label : 'Todos' },
+                    { value: 1 , label : 'Adolfo Alsina' },
+                    { value: 2 , label : 'Adolfo Gonzales Chaves' },
+                    { value: 3 , label : 'Alberti' },
+                    { value: 4 , label : 'Almirante Brown' },
+                    { value: 5 , label : 'Arrecifes' },
+                    { value: 6 , label : 'Avellaneda' },
+                    { value: 7 , label : 'Ayacucho' },
+                    { value: 8 , label : 'Azul' },
+                    { value: 9 , label : 'Bahía Blanca' },
+                    { value: 10 , label : 'Balcarce' },
+                    { value: 11 , label : 'Baradero' },
+                    { value: 12 , label : 'Benito Juárez' },
+                    { value: 13 , label : 'Berazategui' },
+                    { value: 14 , label : 'Berisso' },
+                    { value: 15 , label : 'Bolívar' },
+                    { value: 16 , label : 'Bragado' },
+                    { value: 17 , label : 'Brandsen' },
+                    { value: 18 , label : 'Campana' },
+                    { value: 19 , label : 'Cañuelas' },
+                    { value: 20 , label : 'Capitán Sarmiento' },
+                    { value: 21 , label : 'Carlos Casares' },
+                    { value: 22 , label : 'Carlos Tejedor' },
+                    { value: 23 , label : 'Carmen de Areco' },
+                    { value: 24 , label : 'Castelli' },
+                    { value: 25 , label : 'Chacabuco' },
+                    { value: 26 , label : 'Chascomús' },
+                    { value: 27 , label : 'Chivilcoy' },
+                    { value: 28 , label : 'Colón' },
+                    { value: 29 , label : 'Coronel Dorrego' },
+                    { value: 30 , label : 'Coronel Pringles' },
+                    { value: 31 , label : 'Coronel Rosales' },
+                    { value: 32 , label : 'Coronel Suárez' },
+                    { value: 33 , label : 'Daireaux' },
+                    { value: 34 , label : 'Dolores' },
+                    { value: 35 , label : 'Ensenada' },
+                    { value: 36 , label : 'Escobar' },
+                    { value: 37 , label : 'Esteban Echeverría' },
+                    { value: 38 , label : 'Exaltación de la Cruz' },
+                    { value: 39 , label : 'Ezeiza' },
+                    { value: 40 , label : 'Florencio Varela' },
+                    { value: 41 , label : 'Florentino Ameghino' },
+                    { value: 42 , label : 'General Alvarado' },
+                    { value: 43 , label : 'General Alvear' },
+                    { value: 44 , label : 'General Arenales' },
+                    { value: 45 , label : 'General Belgrano' },
+                    { value: 46 , label : 'General Guido' },
+                    { value: 47 , label : 'General Juan Madariaga' },
+                    { value: 48 , label : 'General La Madrid' },
+                    { value: 49 , label : 'General Las Heras' },
+                    { value: 50 , label : 'General Lavalle' },
+                    { value: 51 , label : 'General Paz' },
+                    { value: 52 , label : 'General Pinto' },
+                    { value: 53 , label : 'General Pueyrredón' },
+                    { value: 54 , label : 'General Rodríguez' },
+                    { value: 55 , label : 'General San Martín' },
+                    { value: 56 , label : 'General Viamonte' },
+                    { value: 57 , label : 'General Villegas' },
+                    { value: 58 , label : 'Guaminí' },
+                    { value: 59 , label : 'Hipólito Yrigoyen' },
+                    { value: 60 , label : 'Hurlingham' },
+                    { value: 61 , label : 'Ituzaingó' },
+                    { value: 62 , label : 'José C. Paz' },
+                    { value: 63 , label : 'Junín' },
+                    { value: 64 , label : 'La Costa' },
+                    { value: 65 , label : 'La Matanza' },
+                    { value: 66 , label : 'La Plata' },
+                    { value: 67 , label : 'Lanús' },
+                    { value: 68 , label : 'Laprida' },
+                    { value: 69 , label : 'Las Flores' },
+                    { value: 70 , label : 'Leandro N. Alem' },
+                    { value: 71 , label : 'Lezama' },
+                    { value: 72 , label : 'Lincoln' },
+                    { value: 73 , label : 'Lobería' },
+                    { value: 74 , label : 'Lobos' },
+                    { value: 75 , label : 'Lomas de Zamora' },
+                    { value: 76 , label : 'Luján' },
+                    { value: 77 , label : 'Magdalena' },
+                    { value: 78 , label : 'Maipú' },
+                    { value: 79 , label : 'Malvinas Argentinas' },
+                    { value: 80 , label : 'Mar Chiquita' },
+                    { value: 81 , label : 'Marcos Paz' },
+                    { value: 82 , label : 'Mercedes' },
+                    { value: 83 , label : 'Merlo' },
+                    { value: 84 , label : 'Monte' },
+                    { value: 85 , label : 'Monte Hermoso' },
+                    { value: 86 , label : 'Moreno' },
+                    { value: 87 , label : 'Morón' },
+                    { value: 88 , label : 'Navarro' },
+                    { value: 89 , label : 'Necochea' },
+                    { value: 90 , label : 'Nueve de Julio' },
+                    { value: 91 , label : 'Olavarría' },
+                    { value: 92 , label : 'Patagones' },
+                    { value: 93 , label : 'Pehuajó' },
+                    { value: 94 , label : 'Pellegrini' },
+                    { value: 95 , label : 'Pergamino' },
+                    { value: 96 , label : 'Pila' },
+                    { value: 97 , label : 'Pilar' },
+                    { value: 98 , label : 'Pinamar' },
+                    { value: 99 , label : 'Presidente Perón' },
+                    { value: 100 , label : 'Puan' },
+                    { value: 101 , label : 'Punta Indio' },
+                    { value: 102 , label : 'Quilmes' },
+                    { value: 103 , label : 'Ramallo' },
+                    { value: 104 , label : 'Rauch' },
+                    { value: 105 , label : 'Rivadavia' },
+                    { value: 106 , label : 'Rojas' },
+                    { value: 107 , label : 'Roque Pérez' },
+                    { value: 108 , label : 'Saavedra' },
+                    { value: 109 , label : 'Saladillo' },
+                    { value: 110 , label : 'Salliqueló' },
+                    { value: 111 , label : 'Salto' },
+                    { value: 112 , label : 'San Andrés de Giles' },
+                    { value: 113 , label : 'San Antonio de Areco' },
+                    { value: 114 , label : 'San Cayetano' },
+                    { value: 115 , label : 'San Fernando' },
+                    { value: 116 , label : 'San Isidro' },
+                    { value: 117 , label : 'San Miguel' },
+                    { value: 118 , label : 'San Nicolás' },
+                    { value: 119 , label : 'San Pedro' },
+                    { value: 120 , label : 'San Vicente' },
+                    { value: 121 , label : 'Suipacha' },
+                    { value: 122 , label : 'Tandil' },
+                    { value: 123 , label : 'Tapalqué' },
+                    { value: 124 , label : 'Tigre' },
+                    { value: 125 , label : 'Tordillo' },
+                    { value: 126 , label : 'Tornquist' },
+                    { value: 127 , label : 'Trenque Lauquen' },
+                    { value: 128 , label : 'Tres Arroyos' },
+                    { value: 129 , label : 'Tres de Febrero' },
+                    { value: 130 , label : 'Tres Lomas' },
+                    { value: 131 , label : 'Veinticinco de Mayo' },
+                    { value: 132 , label : 'Vicente López' },
+                    { value: 133 , label : 'Villa Gesell' },
+                    { value: 134 , label : 'Villarino' },
+                    { value: 135 , label : 'Zárate' }
+                ];
+                $scope.partidos = $scope.arrayPartido[$scope.partido];
+
+                // TIPO
+                if($scope.tipo_ == "Casa") {
+                    var number = 0;
+                } else if ($scope.tipo_ == "Departamento") {
+                    var number = 1;
+                } else {
+                    var number = 2;
+                }
+                $scope.arrayTipo = [
+                    {value: "Casa", label: 'Casa'},
+                    {value: "Departamento", label: 'Departamento'},
+                    {value: "PH", label: 'PH'}
+                ];
+                $scope.tipos = $scope.arrayTipo[number];
+
+            }, function errorCallback(response) {
+                console.error(response)
+            });
+        } else {
+            $http({
+                method: 'POST',
+                url: miPath + 'controllers/Administrador.php',
+                data: {
+                    productoP : producto,
+                    idP : id
+                },
+            }).then(function successCallback(response) {
+                $scope.nombre = response.data.nombre
+                $scope.apellido = response.data.apellido
+                $scope.usuario = response.data.usuario
+                $scope.correo = response.data.correo
+                $scope.clave = response.data.clave
+            }, function errorCallback(response) {
+                console.error(response)
+            });
+        }
+
+
+        $scope.interactuar = function (operacionN, idN) {
+            location.href = miPath = '#!/administrador/'+operacionN+'/'+idN;
+            location.reload()
+        }
+
+        $scope.eliminarPropiedad = function () {
+            alert($routeParams.v2)
         }
     })
 
