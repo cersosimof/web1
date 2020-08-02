@@ -52,7 +52,7 @@
     </div>
 </nav>
 <!--CUERPO -->
-<div class="container">
+<div>
     <div ng-view></div>
 </div>
 </body>
@@ -167,8 +167,8 @@
                 if (response.data === 0) {
                     alert("No se encontraron coincidencias en su busqueda.")
                 } else if (response.data.idd == 123){
-                    console.log("esta aca")
                     location.href = miPath + '#!/administrador/0/0';
+                    location.reload()
                 } else {
                     location.href = miPath;
                 }
@@ -360,7 +360,67 @@
         let id = $routeParams.v2;
 
         $scope.productoVisible = $routeParams.v1;
+        $scope.idVisible = $routeParams.v2;
 
+        // Usuario Modificacion
+        $scope.nombreUpdate = ''
+        $scope.apellidoUpdate = ''
+        $scope.usuarioUpdate = ''
+        $scope.correoUpdate = ''
+        $scope.claveUpdate = ''
+
+        // Modificador de Estado Usuario
+        $scope.change = function (x, y) {
+            if(y == "nombreUpdate"){
+                $scope.nombreUpdate = x;
+            } else if (y == "apellidoUpdate") {
+                $scope.apellidoUpdate = x;
+            } else if (y == "usuarioUpdate") {
+                $scope.usuarioUpdate = x;
+            } else if (y == "correoUpdate") {
+                $scope.correoUpdate = x;
+            } else if (y == "claveUpdate") {
+                $scope.claveUpdate = x;
+            } else {
+                console.error("Error")
+           }
+        }
+
+        // Propiedad Modificacion
+        $scope.operacionUpdate = ''
+        $scope.provinciaUpdate = ''
+        $scope.partidoUpdate = ''
+        $scope.tipoUpdate = ''
+        $scope.direccionUpdate = ''
+        $scope.precioUpdate = ''
+        $scope.tamanoUpdate = ''
+        $scope.descripcionUpdate = ''
+        $scope.fotoUpdate = ''
+
+        // Modificador de Estado Usuario
+        $scope.change = function (x, y) {
+            if(y == "operacionUpdate"){
+                $scope.operacionUpdate = x;
+            } else if (y == "provinciaUpdate") {
+                $scope.provinciaUpdate = x;
+            } else if (y == "partidoUpdate") {
+                $scope.partidoUpdate = x;
+            } else if (y == "tipoUpdate") {
+                $scope.tipoUpdate = x;
+            } else if (y == "direccionUpdate") {
+                $scope.direccionUpdate = x;
+            } else if (y == "precioUpdate") {
+                $scope.precioUpdate = x;
+            } else if (y == "tamanoUpdate") {
+                $scope.tamanoUpdate = x;
+            } else if (y == "descripcionUpdate") {
+                $scope.descripcionUpdate = x;
+            } else if (y == "fotoUpdate") {
+                $scope.fotoUpdate = x;
+            } else {
+                console.error("Error")
+            }
+        }
 
         // SI ES 1 MODIFICA PROPIEDADES
         if($routeParams.v1 == 1){
@@ -372,29 +432,32 @@
                     idP : id
                 },
             }).then(function successCallback(response) {
+
+                $scope.id = response.data.id
                 $scope.operacion = response.data.id_operacion
                 $scope.provincia = response.data.id_provincia
                 $scope.partido = response.data.id_partido
-                $scope.tipo_ = response.data.tipo
-                $scope.direccion = response.data.direccion
-                $scope.precio = response.data.precio
-                $scope.tamano = response.data.m2
-                $scope.descripcion = response.data.descripcion
-                $scope.foto = response.data.imagen
+                $scope.tipoUpdate = response.data.tipo
+                $scope.direccionUpdate = response.data.direccion
+                $scope.precioUpdate = response.data.precio
+                $scope.tamanoUpdate = response.data.m2
+                $scope.descripcionUpdate = response.data.descripcion
+                $scope.fotoUpdate = response.data.imagen
+                $scope.fotoUpdateParaMostrar = response.data.imagen
 
                 // OPERACIONES
                 $scope.myoptions = [
                     {value: 1, label: 'Venta'},
                     {value: 2, label: 'Alquiler'}
                 ];
-                $scope.myvar = $scope.myoptions[$scope.operacion-1];
+                $scope.operacionUpdate = $scope.myoptions[$scope.operacion-1];
 
                 // PROVINCIA
                 $scope.arrayProvincias = [
                     {value: 1, label: 'Buenos Aires'},
 
                 ];
-                $scope.provincias = $scope.arrayProvincias[$scope.provincia-1];
+                $scope.provinciaUpdate = $scope.arrayProvincias[$scope.provincia-1];
 
                 // PARTIDO
                 $scope.arrayPartido = [
@@ -535,12 +598,12 @@
                     { value: 134 , label : 'Villarino' },
                     { value: 135 , label : 'Zárate' }
                 ];
-                $scope.partidos = $scope.arrayPartido[$scope.partido];
+                $scope.partidoUpdate = $scope.arrayPartido[$scope.partido];
 
                 // TIPO
-                if($scope.tipo_ == "Casa") {
+                if($scope.tipoUpdate == "Casa") {
                     var number = 0;
-                } else if ($scope.tipo_ == "Departamento") {
+                } else if ($scope.tipoUpdate == "Departamento") {
                     var number = 1;
                 } else {
                     var number = 2;
@@ -550,7 +613,7 @@
                     {value: "Departamento", label: 'Departamento'},
                     {value: "PH", label: 'PH'}
                 ];
-                $scope.tipos = $scope.arrayTipo[number];
+                $scope.tipoUpdate = $scope.arrayTipo[number];
 
             }, function errorCallback(response) {
                 console.error(response)
@@ -564,11 +627,12 @@
                     idP : id
                 },
             }).then(function successCallback(response) {
-                $scope.nombre = response.data.nombre
-                $scope.apellido = response.data.apellido
-                $scope.usuario = response.data.usuario
-                $scope.correo = response.data.correo
-                $scope.clave = response.data.clave
+                $scope.id = response.data.id
+                $scope.nombreUpdate = response.data.nombre
+                $scope.apellidoUpdate = response.data.apellido
+                $scope.usuarioUpdate = response.data.usuario
+                $scope.correoUpdate = response.data.correo
+                $scope.claveUpdate = response.data.clave
             }, function errorCallback(response) {
                 console.error(response)
             });
@@ -576,12 +640,103 @@
 
 
         $scope.interactuar = function (operacionN, idN) {
+            $scope.productoVisible = 15;
             location.href = miPath = '#!/administrador/'+operacionN+'/'+idN;
             location.reload()
         }
 
         $scope.eliminarPropiedad = function () {
-            alert($routeParams.v2)
+
+            if(confirm("¿Desea eliminar la propiedad " + $routeParams.v2 + "?")) {
+                $http({
+                    method: 'POST',
+                    url: miPath + 'controllers/eliminarPropiedad.php',
+                    data: {
+                        id : $routeParams.v2
+                    },
+                }).then(function successCallback(response) {
+                   alert(response.data)
+                    location.reload()
+                }, function errorCallback(response) {
+                    console.error(response)
+                });
+            } else {
+                alert("La propiedad no se elimino.")
+            }
+        }
+
+        $scope.eliminarUsuario = function () {
+
+            if(confirm("¿Desea eliminar el usuario " + $routeParams.v2 + "?")) {
+                $http({
+                    method: 'POST',
+                    url: miPath + 'controllers/eliminarUsuario.php',
+                    data: {
+                        id : $routeParams.v2
+                    },
+                }).then(function successCallback(response) {
+                    alert(response.data)
+                    location.reload()
+                }, function errorCallback(response) {
+                    console.error(response)
+                });
+            } else {
+                alert("El usaurio no se elimino.")
+            }
+        }
+
+        $scope.modificarUsuario = function () {
+
+            if(confirm("¿Desea modificar el usuario " + $routeParams.v2 + "?")) {
+                $http({
+                    method: 'POST',
+                    url: miPath + 'controllers/modificarUsuario.php',
+                    data: {
+                        id : $routeParams.v2,
+                        nombre : $scope.nombreUpdate,
+                        apellido : $scope.apellidoUpdate,
+                        usuario : $scope.usuarioUpdate,
+                        correo : $scope.correoUpdate,
+                        claveUno : $scope.claveUpdate
+                    },
+                }).then(function successCallback(response) {
+                    alert(response.data)
+                    location.reload()
+                }, function errorCallback(response) {
+                    console.error(response)
+                });
+            } else {
+                alert("El usaurio no se elimino.")
+            }
+        }
+
+        $scope.modificarPropiedad = function () {
+
+            if(confirm("¿Desea modificar la propiedad " + $routeParams.v2 + "?")) {
+                $http({
+                    method: 'POST',
+                    url: miPath + 'controllers/modificarPropiedad.php',
+                    data: {
+                        id : $routeParams.v2,
+                        operacion : $scope.operacionUpdate.value,
+                        provincia : $scope.provinciaUpdate.value,
+                        partido : $scope.partidoUpdate.value,
+                        tipo : $scope.tipoUpdate.value,
+                        direccion : $scope.direccionUpdate,
+                        precio : $scope.precioUpdate,
+                        tamano : $scope.tamanoUpdate,
+                        descripcion : $scope.descripcionUpdate,
+                        foto : ($scope.fotoUpdate == 1) ? 'default.jpg' : 0
+                    },
+                }).then(function successCallback(response) {
+                    alert(response.data)
+                    location.reload()
+                }, function errorCallback(response) {
+                    console.error(response)
+                });
+            } else {
+                alert("la propiedad no se modifocp.")
+            }
         }
     })
 

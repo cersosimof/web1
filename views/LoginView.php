@@ -3,7 +3,7 @@ include("../VariablesEntorno.php");
 ?>
 
 
-<div class="contenedorColumnas" style="height: 85vh;">
+<div class="contenedorColumnas container" style="height: 85vh;">
     <div class="columnaUno" style="padding: 10px; width: 50%">
         <div class="contenedorLogin">
             <div class="loginForm">

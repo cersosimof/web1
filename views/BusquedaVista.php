@@ -1,5 +1,5 @@
 
-<div class="contenedorColumnas" style="height: 90vh">
+<div class="contenedorColumnas container" style="height: 90vh">
     <div class="columnaUno" style="padding: 10px;">
         <h5 class="tituloPrincipal"> Filtros:</h5>
 

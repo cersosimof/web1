@@ -173,3 +173,15 @@ a.cardProducto:hover{
 .resaltarRow:hover {
     background-color: lightblue !important;
 }
+
+.fondoBeige {
+    background-color: beige;
+}
+
+.fondoVerde {
+    background-color: darkseagreen;
+}
+
+.container {
+    width: 90%;
+}

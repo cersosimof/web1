@@ -320,6 +320,63 @@ class ConnectDB
 
     }
 
-}
 
+
+    public function eliminarPropiedadADM($id)
+    {
+        $link = $this->abrirConexion();
+
+        $eliminarPropiedad = "DELETE FROM departamentos WHERE id = '$id'";
+
+        if (mysqli_query($link, $eliminarPropiedad)) {
+            echo "La propiedad fue eliminada";
+        } else {
+            echo "Error: " . mysqli_error($link);
+        }
+    }
+
+    public function eliminarUsuarioADM($id)
+    {
+        $link = $this->abrirConexion();
+
+        $eliminarUsuario = "DELETE FROM usuarios WHERE id = '$id'";
+
+        if (mysqli_query($link, $eliminarUsuario)) {
+            echo "El usuario fue eliminado";
+        } else {
+            echo "Error: " . mysqli_error($link);
+        }
+    }
+
+    public function modificarUsuarioADM($id, $nombre, $apellido, $usuario, $correo, $c1)
+    {
+        $link = $this->abrirConexion();
+
+        $modificarUsuario = "UPDATE usuarios SET nombre = '$nombre', apellido = '$apellido', usuario = '$usuario', correo = '$correo', clave = '$c1' WHERE id = '$id' ";
+
+        if (mysqli_query($link, $modificarUsuario)) {
+            echo "El usuario fue modificado";
+        } else {
+            echo "Error: " . mysqli_error($link);
+        }
+    }
+
+    public function modificarPropiedadADM($id, $operacion, $provincia, $partido, $tipo, $direccion, $precio, $tamano, $descripcion, $foto)
+    {
+        $link = $this->abrirConexion();
+
+        if($foto == "0") {
+            $modificarUsuario = "UPDATE departamentos SET id_operacion=$operacion,id_provincia=$provincia,id_partido=$partido,direccion='$direccion',descripcion='$descripcion',precio=$precio, m2=$tamano ,tipo='$tipo' WHERE id = $id";
+        } else {
+            $modificarUsuario = "UPDATE departamentos SET id_operacion=$operacion,id_provincia=$provincia,id_partido=$partido,direccion='$direccion',descripcion='$descripcion',precio=$precio, m2=$tamano ,tipo='$tipo', imagen='$foto' WHERE id = $id";
+        }
+
+        if (mysqli_query($link, $modificarUsuario)) {
+            echo "La propiedad fue modificada";
+        } else {
+            echo "Error: " . mysqli_error($link);
+        }
+    }
+
+}
 

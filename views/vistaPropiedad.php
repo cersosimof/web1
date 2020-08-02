@@ -3,7 +3,7 @@ session_start();
 include("../VariablesEntorno.php");
 
 ?>
-<div class="contenedorColumnas">
+<div class="contenedorColumnas container">
     <div class="columnaDos" style="width: 100%">
         <h5 class="tituloPrincipal">Propiedad</h5>
         <div style="display: flex;">

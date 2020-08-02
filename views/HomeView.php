@@ -2,7 +2,7 @@
 include_once("../VariablesEntorno.php");
 ?>
 
-<div class="contenedorColumnas">
+<div class="contenedorColumnas container" >
     <div class="columnaDos" style="width: 100%">
         <div class="jumbotron" ng-controller="controladorBuscador">
             <h1 class="display-4">Buscador:</h1>
