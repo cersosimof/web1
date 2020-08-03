@@ -20,7 +20,7 @@ class ConnectDB
             $this->db = 'web1';
         } else {
             $this->user = 'id14462825_cersosimof';
-            $this->pass = 's2]sF7aOQwg^J!M@';
+            $this->pass = 'RSJ6s>oyAG1wroH!';
             $this->host = 'localhost';
             $this->db = 'id14462825_web1';
         }
@@ -105,6 +105,7 @@ class ConnectDB
         $usuario = $idUsuario["id"];
 
         $sql = "INSERT INTO departamentos (id, id_operacion, id_provincia, id_partido, direccion, descripcion, id_usuario, precio, m2, tipo, imagen) VALUES (NULL, '$operacion', '$provincia', '$partido', '$direccion', '$descripcion', '$usuario', '$precio', '$tamano', '$tipo', '$foto');";
+
         if (mysqli_query($link, $sql)) {
             return mysqli_insert_id($link);
         } else {
@@ -266,13 +267,14 @@ class ConnectDB
         $us = mysqli_fetch_assoc($ejecutarBusquedaUsuario);
         $idUsuario = $us["id"];
         date_default_timezone_set('UTC');
+        $fecha_actual = new DateTime();
         $fecha_actual = new DateTime("America/Argentina/Buenos_Aires");
         $cadena_fecha_actual = $fecha_actual->format("d/m/Y, g:i a");
 
-        $sqlInsertarMensaje = "INSERT INTO mensajes_propiedades VALUES (null, '$idUsuario', '$idPropiedad', '$mensaje', '$cadena_fecha_actual')";
+        $sqlInsertarMensaje = "INSERT INTO mensajes_propiedades  VALUES (null, '$idUsuario', '$idPropiedad', '$mensaje', '$cadena_fecha_actual')";
 
         if (mysqli_query($link, $sqlInsertarMensaje)) {
-            return mysqli_insert_id($link);
+            return 1;
         } else {
             return 0;
         }
@@ -320,8 +322,6 @@ class ConnectDB
 
     }
 
-
-
     public function eliminarPropiedadADM($id)
     {
         $link = $this->abrirConexion();
@@ -365,7 +365,7 @@ class ConnectDB
     {
         $link = $this->abrirConexion();
 
-        if($foto == "0") {
+        if ($foto == "0") {
             $modificarUsuario = "UPDATE departamentos SET id_operacion=$operacion,id_provincia=$provincia,id_partido=$partido,direccion='$direccion',descripcion='$descripcion',precio=$precio, m2=$tamano ,tipo='$tipo' WHERE id = $id";
         } else {
             $modificarUsuario = "UPDATE departamentos SET id_operacion=$operacion,id_provincia=$provincia,id_partido=$partido,direccion='$direccion',descripcion='$descripcion',precio=$precio, m2=$tamano ,tipo='$tipo', imagen='$foto' WHERE id = $id";
@@ -376,6 +376,16 @@ class ConnectDB
         } else {
             echo "Error: " . mysqli_error($link);
         }
+    }
+
+    public function buscarUsuario($usuario)
+    {
+        $link = $this->abrirConexion();
+        $queryBuscarMensajes = mysqli_query($link, "SELECT * FROM usuarios WHERE usuario = '$usuario' ");
+        $resultados = mysqli_affected_rows($link);
+//        $fila = mysqli_fetch_assoc($queryBuscarMensajes);
+
+        return $resultados;
     }
 
 }

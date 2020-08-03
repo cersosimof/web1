@@ -48,14 +48,16 @@ include_once("../VariablesEntorno.php");
         <div class="contenedorCards">
             <a <a href="#!/propiedad/{{propiedad.id}}" class="cardProducto" ng-repeat="propiedad in cuatroPropiedades">
                 <div class="card" style="width: 18rem;">
+                    <div style="height: 200px">
                     <?php
                         if (Constants::ENTORNO == "dev") {
-                            echo '<img src="../web1/imagenesPropiedades/{{propiedad.imagen}}" class="card-img-top" style="height: 170px;">';
+                            echo '<img src="../web1/imagenesPropiedades/{{propiedad.imagen}}" class="card-img-top" style="height: 100%; width: 100%">';
                         } else {
-                            echo '<img src="../imagenesPropiedades/{{propiedad.imagen}}" class="card-img-top" style="height: 170px;">';
+                            echo '<img src="../imagenesPropiedades/{{propiedad.imagen}}" class="card-img-top" style="height: 100%; width: 100%">';
                         }
                     ?>
-                    <div class="card-body" style="padding: 6px; width: 100%">
+                    </div>
+                    <div class="card-body" style="padding: 6px; width: 100%; background-color: white; z-index: 100">
                         <h5 class="card-title">{{propiedad.operacion}} - {{propiedad.partido}}</h5>
                         <h6 class="sacarEfectos">Direccion: {{propiedad.direccion}}</h6>
                         <h6>Tamaño: {{propiedad.m2}} M2</h6>

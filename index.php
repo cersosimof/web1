@@ -1,5 +1,5 @@
 <?php session_start();
-    include("VariablesEntorno.php");
+include("VariablesEntorno.php");
 ?>
 
 
@@ -132,7 +132,7 @@
             operacion = op;
             var botonVenta = angular.element(document.querySelector('#operacion_1'));
             var botonAlquiler = angular.element(document.querySelector('#operacion_2'));
-            
+
             // Efecto fondo boton.
             botonVenta.removeClass('botonSeleccionado');
             botonAlquiler.removeClass('botonSeleccionado');
@@ -144,7 +144,17 @@
         }
 
         $scope.enviarBusqueda = function () {
-            location.href = '#!/busqueda/' + operacion + '/' + $scope.provinciaABuscar + '/' + $scope.partidoABuscar + '/0';
+            if( $scope.provinciaABuscar != null && $scope.partidoABuscar != null) {
+                location.href = '#!/busqueda/' + operacion + '/' + $scope.provinciaABuscar + '/' + $scope.partidoABuscar + '/0';
+            } else {
+                if( $scope.provinciaABuscar == null && $scope.partidoABuscar == null) {
+                    alert("Ingrese parametros de busqueda.")
+                } else if( $scope.provinciaABuscar == null && $scope.partidoABuscar != null) {
+                    alert("Ingrese provincia.")
+                } else {
+                    alert("Ingrese partido.")
+                }
+            }
         }
     })
 
@@ -180,7 +190,9 @@
 
     // CONTROLADOR PANTALLA ALTA USAURIO
     app.controller('altaUsuario', function ($scope, $http) {
+        $scope.botonTexto = "Enviar";
         $scope.altaNuevoUsuario = function () {
+            $scope.botonTexto = "Enviando...";
             $http({
                 method: 'POST',
                 url: miPath + 'controllers/AltaUsuarioController.php',
@@ -199,8 +211,10 @@
                 } else {
                     alert(response.data.descripcion)
                 }
+                $scope.botonTexto = "Enviar";
             }, function errorCallback(response) {
                 console.error(response)
+                $scope.botonTexto = "Enviar";
             });
         }
     })
@@ -283,9 +297,14 @@
                     url: miPath + 'controllers/CargarComentarioAJAX.php',
                     data: { propiedad: $routeParams.p1, usuario : $usuario, mensaje : $scope.textoComentario },
                 }).then(function successCallback(response) {
-                    $scope.listaMensajes.push({ id : $routeParams.p1, usuario : $usuario, mensaje : $scope.textoComentario, fecha : "Hace unos instantes..." })
-                    $scope.textoComentario = "";
-                    $scope.botonEnviarMensaje = "Enviar";
+                    if(response.data == 0) {
+                        alert("El comentario no se pudo guardar.")
+                    } else {
+                        alert("El comentario se guardo correctamente.")
+                        $scope.listaMensajes.push({ id : $routeParams.p1, usuario : $usuario, mensaje : $scope.textoComentario, fecha : "Hace unos instantes..." })
+                        $scope.textoComentario = "";
+                        $scope.botonEnviarMensaje = "Enviar";
+                    }
                 }, function errorCallback(response) {
                     console.error(response)
                     $scope.botonEnviarMensaje = "Enviar";
@@ -340,6 +359,11 @@
                 }).then(function successCallback(response) {
                     if (response.data.id != 0) {
                         alert(response.data.descripcion)
+                        if(confirm("La propiedad se cargo correctamente. Presione Aceptar para ir al Buscador, y Cancelar para cargar otra propiedad.")) {
+                            location.href = "#!/"
+                        } else {
+                            location.reload()
+                        }
                     }
                     $scope.textoBoton = "Enviar"
                 }, function errorCallback(response) {
@@ -383,7 +407,7 @@
                 $scope.claveUpdate = x;
             } else {
                 console.error("Error")
-           }
+            }
         }
 
         // Propiedad Modificacion
@@ -655,7 +679,7 @@
                         id : $routeParams.v2
                     },
                 }).then(function successCallback(response) {
-                   alert(response.data)
+                    alert(response.data)
                     location.reload()
                 }, function errorCallback(response) {
                     console.error(response)

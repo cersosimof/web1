@@ -24,8 +24,16 @@ include("../VariablesEntorno.php");
 
                     <button class="btn btn-lg btn-primary btn-block botonPrincipal" style="height: 35px; margin: 15px 0px; padding-top: 2px;"  ng-click="enviarDatosLogin()">Ingresar</button>
 
-                    <a href="/web1/#!/altaUsuario" class="mb-3 text-muted text-center"
-                       style="display: flex;flex-direction: row-reverse;justify-content: end;">Registrarme</a>
+                    <?php
+                    if(Constants::ENTORNO == "dev"){
+                        echo '<a href="/web1/#!/altaUsuario" class="mb-3 text-muted text-center" style="display: flex;flex-direction: row-reverse;justify-content: end;">Registrarme</a>';
+                    }else{
+                        echo '<a href="../#!/altaUsuario" class="mb-3 text-muted text-center" style="display: flex;flex-direction: row-reverse;justify-content: end;">Registrarme</a>';
+                    }
+                    ?>
+
+
+
                 </div>
             </div>
         </div>

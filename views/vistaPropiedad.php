@@ -29,6 +29,9 @@ include("../VariablesEntorno.php");
             <p>{{datosPropiedad.descripcion}}</p>
         </div>
 
+        <?php
+        if(isset($_SESSION["usuario"])){
+        ?>
         <div style="padding: 15px;">
             <h5 class="tituloPrincipal" style="color: dimgrey">Mensajes:</h5>
             <div style="display: flex; margin-bottom: 40px;">
@@ -38,6 +41,7 @@ include("../VariablesEntorno.php");
                 </div>
                 <div class="panelDeMensajes" style="width: 50%; height: 30vh; border: 1px solid black;" >
                     <div class="mensajeRecibido" style="overflow: auto;display: flex;flex-direction: column;height: 100%;">
+                        <div ng-if="listaMensajes.length == 0"> <h6 style="justify-content: center;display: flex;padding: 50px 0px;">Aun no cuenta con comentarios.</h6> </div>
                         <h6  class="efectoMensaje_{{key%2}}" ng-repeat="(key, mensaje) in listaMensajes | orderBy:mensaje.id:true" >
                             "<em>{{mensaje.mensaje}}</em>"<br><br>
                             <span style="display: flex;flex-direction: row; justify-content: flex-end">
@@ -48,7 +52,9 @@ include("../VariablesEntorno.php");
                 </div>
             </div>
         </div>
-
+        <?php
+        }
+        ?>
 
     </div>
 </div>

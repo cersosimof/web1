@@ -1,3 +1,7 @@
+<?php
+include("../VariablesEntorno.php");
+?>
+
 <div class="pantallaLogin container" style="height: 80vh">
     <div class="formIngreso">
         <h4 class="tituloPrincipal">Alta usuario</h4>
@@ -28,11 +32,20 @@
                 <label for="pass">Repetir</label>
                 <input type="password" class="form-control" ng-model="clave2NuevoUsuario" required/>
             </div>
-            <button type="submit" class="btn btn-primary botonPrincipal" ng-click="altaNuevoUsuario()">Aceptar</button>
+            <button type="submit" class="btn btn-primary botonPrincipal" ng-click="altaNuevoUsuario()">{{botonTexto}}</button>
         </form>
     </div>
     <div class="imagenIngreso" style="padding: 30px">
-        <img src="../web1/altaPropiedad.jpg" alt="" style="height: 100%">
+
+        <?php
+        if(Constants::ENTORNO == "dev"){
+            echo '<img src="../web1/altaPropiedad.jpg" alt="" style="height: 100%">';
+        }else{
+            echo '<img src="../altaPropiedad.jpg" alt="" style="height: 100%">';
+        }
+        ?>
+
+
     </div>
 
 </div>

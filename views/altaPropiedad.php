@@ -6,7 +6,9 @@ $partidos = $connect->traerPartidos();
 
 
 if (!isset($_SESSION["usuario"])) {
-    require_once("../views/LoginView.php");
+    echo '<div style="display: flex;flex-direction: row;justify-content: center;"> <span style="display: flex; padding-top: 70px;">Contenido no disponible...&nbsp;&nbsp;  <br><a href="#!/"> Volver a Home </a></span> <span style="font-size: 100px; padding: 0px 40px">☹️</span> </div>';
+
+//    require_once("../views/LoginView.php");
 } else {
 
 

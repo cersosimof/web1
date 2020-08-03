@@ -18,12 +18,12 @@
             <li><a href="#!/busqueda/{{a}}/1/{{b}}/3">Ascendente</a></li>
             <li><a href="#!/busqueda/{{a}}/1/{{b}}/4">Descendente</a></li>
         </ul>
-        <label for="filtroTipo"> Tipo (no funciona) </label>
-        <ul id="filtrotipo">
-            <li><a href="#!/busqueda/{{a}}/1/{{b}}/3">CASA</a></li>
-            <li><a href="#!/busqueda/{{a}}/1/{{b}}/4">DEPARTAMENTO</a></li>
-            <li><a href="#!/busqueda/{{a}}/1/{{b}}/4">PH</a></li>
-        </ul>
+<!--        <label for="filtroTipo"> Tipo (no funciona) </label>-->
+<!--        <ul id="filtrotipo">-->
+<!--            <li><a href="#!/busqueda/{{a}}/1/{{b}}/3">CASA</a></li>-->
+<!--            <li><a href="#!/busqueda/{{a}}/1/{{b}}/4">DEPARTAMENTO</a></li>-->
+<!--            <li><a href="#!/busqueda/{{a}}/1/{{b}}/4">PH</a></li>-->
+<!--        </ul>-->
 
     </div>
 

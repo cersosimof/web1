@@ -21,9 +21,13 @@ if(isset($_SESSION["usuario"])){
     $usuario = $_SESSION["usuario"];
     $foto = $request->foto;
 
+    if($foto == "0") {
+        $altaPropiedad = $connect->insertarNuevaPropiedad($operacion, $provincia, $partido, $tipo, $direccion, $precio, $tamano, $descripcion, $usuario, 'default.jpg');
+    } else {
+        $altaPropiedad = $connect->insertarNuevaPropiedad($operacion, $provincia, $partido, $tipo, $direccion, $precio, $tamano, $descripcion, $usuario, $foto);
 
+    }
 
-$altaPropiedad = $connect->insertarNuevaPropiedad($operacion, $provincia, $partido, $tipo, $direccion, $precio, $tamano, $descripcion, $usuario, $foto);
 
 if($altaPropiedad != 0) {
     $obj = (object) array('estado' => 'OK', 'descripcion' => 'El registro se cargo correctamente.', 'id' => $altaPropiedad);
