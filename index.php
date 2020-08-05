@@ -16,9 +16,9 @@ include("VariablesEntorno.php");
 </head>
 <body>
 <input type="hidden" value="<?php echo Constants::ENTORNO; ?>" id="idEntorno">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #6ba280 !important">
     <div class="container" style="padding: 0px 25px">
-        <a class="navbar-brand" href="#">ALQUILERES</a>
+        <a class="navbar-brand" href="#">PROPIEDADES-FC</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -207,7 +207,7 @@ include("VariablesEntorno.php");
             }).then(function successCallback(response) {
                 if (response.data.estado == "OK") {
                     alert(response.data.descripcion)
-                    location.href = miPath;
+                    location.href = miPath+"#!/login/0";
                 } else {
                     alert(response.data.descripcion)
                 }
@@ -290,7 +290,7 @@ include("VariablesEntorno.php");
         });
 
         $scope.enviarComentario = function ($usuario) {
-            if($scope.textoComentario != "") {
+            if($scope.textoComentario.length > 0) {
                 $scope.botonEnviarMensaje = "Enviando...";
                 $http({
                     method: 'POST',
@@ -315,7 +315,28 @@ include("VariablesEntorno.php");
 
         }
 
-        console.log($scope.listaMensajes)
+        $scope.borrarMiPropiedad = function () {
+            var idPropiedad = $routeParams.p1;
+
+            if(confirm("¿Desea eliminar la propiedad " + $routeParams.p1 + "?")) {
+                $http({
+                    method: 'POST',
+                    url: miPath + 'controllers/eliminarPropiedad.php',
+                    data: {
+                        id : $routeParams.p1
+                    },
+                }).then(function successCallback(response) {
+                    alert(response.data)
+                    location.href = '!#/'
+                }, function errorCallback(response) {
+                    console.error(response)
+                });
+            } else {
+                alert("La propiedad no se elimino.")
+            }
+
+
+        }
     })
 
     // FORMULARIO DE ALTA DE PROPIEDAD
@@ -394,7 +415,7 @@ include("VariablesEntorno.php");
         $scope.claveUpdate = ''
 
         // Modificador de Estado Usuario
-        $scope.change = function (x, y) {
+        $scope.change_ = function (x, y) {
             if(y == "nombreUpdate"){
                 $scope.nombreUpdate = x;
             } else if (y == "apellidoUpdate") {

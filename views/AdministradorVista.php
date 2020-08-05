@@ -210,25 +210,25 @@ require_once("../VariablesEntorno.php");
             <form>
                 <div class="form-group">
                     <label for="nombre" style="font-size: 10px">Nombre</label>
-                    <input type="text" class="form-control" ng-model="nombreUpdate" style="font-size: 10px" ng-change="change(nombreUpdate, 'nombreUpdate')"/>
+                    <input type="text" class="form-control" ng-model="nombreUpdate" style="font-size: 10px" ng-change="change_(nombreUpdate, 'nombreUpdate')"/>
                 </div>
                 <div class="form-group">
                     <label for="apellido" style="font-size: 10px">Apellido</label>
-                    <input type="text" class="form-control" ng-model="apellidoUpdate" style="font-size: 10px" ng-change="change(apellidoUpdate, 'apellidoUpdate')"/>
+                    <input type="text" class="form-control" ng-model="apellidoUpdate" style="font-size: 10px" ng-change="change_(apellidoUpdate, 'apellidoUpdate')"/>
                 </div>
 
                 <div class="form-group">
                     <label for="usuario" style="font-size: 10px">Usuario</label>
-                    <input type="text" class="form-control" ng-model="usuarioUpdate" style="font-size: 10px" ng-change="change(usuarioUpdate, 'usuarioUpdate')"/>
+                    <input type="text" class="form-control" ng-model="usuarioUpdate" style="font-size: 10px" ng-change="change_(usuarioUpdate, 'usuarioUpdate')"/>
                 </div>
                 <div class="form-group">
                     <label for="correo" style="font-size: 10px">Correo</label>
-                    <input type="text" class="form-control" ng-model="correoUpdate" style="font-size: 10px" ng-change="change(correoUpdate, 'correoUpdate')"/>
+                    <input type="text" class="form-control" ng-model="correoUpdate" style="font-size: 10px" ng-change="change_(correoUpdate, 'correoUpdate')"/>
                 </div>
 
                 <div class="form-group">
                     <label for="pass" style="font-size: 10px">Contraseña</label>
-                    <input type="password" class="form-control" ng-model="claveUpdate" style="font-size: 10px" ng-change="change(claveUpdate, 'claveUpdate')"/>
+                    <input type="password" class="form-control" ng-model="claveUpdate" style="font-size: 10px" ng-change="change_(claveUpdate, 'claveUpdate')"/>
                 </div>
 
                 <div style="display: flex;flex-direction: row;justify-content: space-around;">

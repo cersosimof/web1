@@ -21,7 +21,13 @@ include("../VariablesEntorno.php");
                 <p>Partido: {{datosPropiedad.partido}}</p>
                 <p>Direccion: {{datosPropiedad.direccion}}</p>
                 <p>Tamaño: {{datosPropiedad.m2}} M2</p>
-                <p>Costo Mes:<span style="color: green"> $ {{datosPropiedad.precio}} </span></p>
+<!--                <p>--><?php //echo $_SESSION["usuario"]; ?><!--</p>-->
+<!--                <p>{{datosPropiedad.usuario}}</p>-->
+                <button ng-if="<?php echo $_SESSION["usuario"]; ?> == datosPropiedad.usuario" ng-click="borrarMiPropiedad()" class="btn btn-danger">Borrar propiedad</button>
+
+                <p ng-if="datosPropiedad.operacion == 'Venta'">Valor Propiedad:<span style="color: green"> $ {{datosPropiedad.precio}} </span></p>
+                <p ng-if="datosPropiedad.operacion == 'Alquiler'">Costo Mensual:<span style="color: green"> $ {{datosPropiedad.precio}} </span></p>
+
             </div>
         </div>
         <div style="padding: 15px;">
@@ -41,6 +47,7 @@ include("../VariablesEntorno.php");
                 </div>
                 <div class="panelDeMensajes" style="width: 50%; height: 30vh; border: 1px solid black;" >
                     <div class="mensajeRecibido" style="overflow: auto;display: flex;flex-direction: column;height: 100%;">
+
                         <div ng-if="listaMensajes.length == 0"> <h6 style="justify-content: center;display: flex;padding: 50px 0px;">Aun no cuenta con comentarios.</h6> </div>
                         <h6  class="efectoMensaje_{{key%2}}" ng-repeat="(key, mensaje) in listaMensajes | orderBy:mensaje.id:true" >
                             "<em>{{mensaje.mensaje}}</em>"<br><br>

@@ -14,11 +14,11 @@ if (!isset($_SESSION["usuario"])) {
 
 
 
-?>
+    ?>
 
-<div class="pantallaLogin container" style="height: 80vh; display: flex">
-    <div class="formIngreso" style="width: 60%">
-        <h4 class="tituloPrincipal">Alta Propiedad</h4>
+    <div class="pantallaLogin container" style="height: 80vh; display: flex">
+        <div class="formIngreso" style="width: 60%">
+            <h4 class="tituloPrincipal">Alta Propiedad</h4>
             <form>
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
@@ -42,9 +42,9 @@ if (!isset($_SESSION["usuario"])) {
                     <div class="col-md-6 mb-3">
                         <label for="altaPartido">Partido:</label>
 
-<!--                        <select ng-model="partidosModel" ng-options="partido.partido for partido in listaPartidos">-->
-<!--                            <option value="" > -- Seleccione -- </option>-->
-<!--                        </select>-->
+                        <!--                        <select ng-model="partidosModel" ng-options="partido.partido for partido in listaPartidos">-->
+                        <!--                            <option value="" > -- Seleccione -- </option>-->
+                        <!--                        </select>-->
 
                         <select class="form-control" id="altaPartido" ng-model="partidoAlta">
                             <option value="" selected="selected">--  Seleccione partido  --</option>
@@ -112,16 +112,26 @@ if (!isset($_SESSION["usuario"])) {
 
                 <div class="btn btn-primary botonPrincipal" ng-click="enviarInfoPropiedad()" id="botonAltaPropiedad" style="margin-top: 40px">{{textoBoton}}</div>
             </form>
+        </div>
+
+        <div class="imagenIngreso" style="padding: 30px; width: 40%">
+
+            <?php
+            if(Constants::ENTORNO == "dev"){
+                echo '<img src="../web1/altaPropiedad2.jpg" alt="" style="height: 100%">';
+            }else{
+                echo '<img src="../altaPropiedad2.jpg" alt="" style="height: 100%">';
+            }
+            ?>
+
+
+
+        </div>
+
+
+
     </div>
 
-    <div class="imagenIngreso" style="padding: 30px; width: 40%">
-        <img src="../web1/altaPropiedad2.jpg" alt="" style="height: 100%">
-    </div>
-
-
-
-</div>
-
-<?php
+    <?php
 }
 ?>

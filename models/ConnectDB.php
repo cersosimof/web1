@@ -383,7 +383,6 @@ class ConnectDB
         $link = $this->abrirConexion();
         $queryBuscarMensajes = mysqli_query($link, "SELECT * FROM usuarios WHERE usuario = '$usuario' ");
         $resultados = mysqli_affected_rows($link);
-//        $fila = mysqli_fetch_assoc($queryBuscarMensajes);
 
         return $resultados;
     }

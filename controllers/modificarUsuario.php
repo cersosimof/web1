@@ -10,7 +10,7 @@ $nombre = $request->nombre;
 $apellido = $request->apellido;
 $usuario = $request->usuario;
 $correo = $request->correo;
-$c1 = $request->claveUno;
+$c1 = md5($request->claveUno);
 
 //echo $id . " " . $nombre . " " . $apellido . " " . $usuario . " " . $correo . " " . $c1;
 
